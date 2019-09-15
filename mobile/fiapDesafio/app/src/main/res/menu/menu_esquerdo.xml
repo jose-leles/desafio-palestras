@@ -6,9 +6,9 @@
             android:icon="@drawable/ic_magnifying_glass"
             android:title="@string/filtrar_por_categorias" >
             <menu>
-                <item android:title="loading"
-                    app:showAsAction="always"
-                    app:actionViewClass="android.widget.Spinner"
+                <item android:title="Carregando Categorias"
+                    app:showAsAction="collapseActionView"
+                    app:actionViewClass="android.widget.ProgressBar"
                     />
             </menu>
         </item>

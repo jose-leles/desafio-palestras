@@ -71,21 +71,21 @@ public class MainActivity extends AppCompatActivity {
 
         if(navigationRecolhivel !=null && navigationRecolhivel.getMenu() !=null){
 
-//            Menu todosGrupos = navigationRecolhivel.getMenu();
-//            for(int i=0; i<todosGrupos.size();i++){
-//                if(todosGrupos.getItem(i).getItemId() == R.id.group_categorias){
-//                    SubMenu subMenu = todosGrupos.getItem(i).getSubMenu();
-//                    subMenu.clear();
-//                    for(int c=0; c<listaDoMenuDireito.size(); c++){
-//                        final Categoria categoria = listaDoMenuDireito.get(c);
-//                        subMenu.add(categoria.getDescricao());
-//                        subMenu.getItem(c).setOnMenuItemClickListener(item -> {
-//                            Log.i("DEBUG_CATEGORIA_SLCND",categoria.getDescricao());
-//                            return false;
-//                        });
-//                    }
-//                }
-//            }
+            Menu todosGrupos = navigationRecolhivel.getMenu();
+            for(int i=0; i<todosGrupos.size();i++){
+                if(todosGrupos.getItem(i).getItemId() == R.id.group_categorias){
+                    SubMenu subMenu = todosGrupos.getItem(i).getSubMenu();
+                    subMenu.clear();
+                    for(int c=0; c<listaDoMenuDireito.size(); c++){
+                        final Categoria categoria = listaDoMenuDireito.get(c);
+                        subMenu.add(categoria.getDescricao());
+                        subMenu.getItem(c).setOnMenuItemClickListener(item -> {
+                            Log.i("DEBUG_CATEGORIA_SLCND",categoria.getDescricao());
+                            return false;
+                        });
+                    }
+                }
+            }
 
         }
 

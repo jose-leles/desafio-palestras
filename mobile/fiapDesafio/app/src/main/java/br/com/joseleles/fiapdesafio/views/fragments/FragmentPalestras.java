@@ -58,15 +58,25 @@ public class FragmentPalestras extends FragmentBase implements DelegateAdapterOn
     private void populateFakeCategorias() {
         listaCategorias = new ArrayList<>();
         listaCategorias.add(new Categoria());
-        listaCategorias.get(0).setDescricao("Categoria 1");
+        listaCategorias.get(0).setDescricao("Tecnologia empresarial");
         listaCategorias.get(0).setPalestras(new ArrayList<>(Arrays.asList(new Palestra(),new Palestra())));
-        listaCategorias.get(0).getPalestras().get(0).setTitulo("Elemento 1");
-        listaCategorias.get(0).getPalestras().get(1).setTitulo("Elemento 2");
-        listaCategorias.add(new Categoria());
-        listaCategorias.get(1).setDescricao("Categoria 2");
-        listaCategorias.get(1).setPalestras(new ArrayList<>(Arrays.asList(new Palestra(),new Palestra())));
-        listaCategorias.get(1).getPalestras().get(0).setTitulo("Elemento 3");
-        listaCategorias.get(1).getPalestras().get(1).setTitulo("Elemento 4");
+        listaCategorias.get(0).getPalestras().get(0).setTitulo("Gestao de pessoas por competencias");
+        listaCategorias.get(0).getPalestras().get(0).setData("19/10/2019");
+        listaCategorias.get(0).getPalestras().get(0).setHora("19h10");
+        listaCategorias.get(0).getPalestras().get(0).setImagem("3.jpg");
+        listaCategorias.get(0).getPalestras().get(0).setQtdVagasDisponiveis(1);
+        listaCategorias.get(0).getPalestras().get(0).setPalestrante("Jose Victor B. Leles");
+        listaCategorias.get(0).getPalestras().get(1).setTitulo("Gestao de pessoas por competencias 2");
+        listaCategorias.get(0).getPalestras().get(1).setData("20/10/2019");
+        listaCategorias.get(0).getPalestras().get(1).setHora("19h20");
+        listaCategorias.get(0).getPalestras().get(1).setImagem("3.jpg");
+        listaCategorias.get(0).getPalestras().get(1).setQtdVagasDisponiveis(0);
+        listaCategorias.get(0).getPalestras().get(1).setPalestrante("Jose Victor B. Leles 2");
+//        listaCategorias.add(new Categoria());
+//        listaCategorias.get(1).setDescricao("Categoria 2");
+//        listaCategorias.get(1).setPalestras(new ArrayList<>(Arrays.asList(new Palestra(),new Palestra())));
+//        listaCategorias.get(1).getPalestras().get(0).setTitulo("Elemento 3");
+//        listaCategorias.get(1).getPalestras().get(1).setTitulo("Elemento 4");
     }
 
     private void setAdpterSeccionadoParaORecyclerView(RecyclerView reciclerView) {

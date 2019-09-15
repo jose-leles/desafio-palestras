@@ -1,12 +1,17 @@
 package br.com.joseleles.fiapdesafio.views.adapters;
 
 import android.content.Context;
+import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,45 +25,55 @@ public class AdaperPalestras extends RecyclerView.Adapter<AdaperPalestras.Palest
     private DelegateAdapterOnItemClick<Palestra> onItemClicked;
     private List<Palestra> base;
 
-    public void add(Palestra s,int position) {
-        position = position == -1 ? getItemCount()  : position;
-        base.add(position,s);
-        notifyItemInserted(position);
-    }
-
-    public void remove(int position){
-        if (position < getItemCount()  ) {
-            base.remove(position);
-            notifyItemRemoved(position);
-        }
-    }
-
     public static class PalestraViewHolder extends RecyclerView.ViewHolder {
-        public final TextView title;
+        public final ImageView imagemPalestra;
+        public final TextView titulo,data,hora,vagas,palestrante;
+        public final Button verMais;
+
 
         public PalestraViewHolder(View view) {
             super(view);
-            title = (TextView) view.findViewById(R.id.titulo_palestra);
+            imagemPalestra = view.findViewById(R.id.imagem_palestra);
+            titulo = view.findViewById(R.id.titulo_palestra);
+            data = view.findViewById(R.id.data_palestra);
+            hora = view.findViewById(R.id.hora_palestra);
+            vagas = view.findViewById(R.id.vagas_palestra);
+            palestrante = view.findViewById(R.id.palestrante_palestra);
+
+            verMais = view.findViewById(R.id.btn_vermais);
         }
     }
 
     public AdaperPalestras(Context context, List<Palestra> data, DelegateAdapterOnItemClick<Palestra> onItemClick) {
         this.context = context;
         this.onItemClicked = onItemClick;
-        if (data != null)
-            base = new ArrayList<Palestra>(data);
-        else base = new ArrayList<>();
+        base = (data != null)? new ArrayList<>(data) : new ArrayList<>();
     }
 
-    public PalestraViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public PalestraViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         final View view = LayoutInflater.from(context).inflate(R.layout.palestra_item, parent, false);
         return new PalestraViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(PalestraViewHolder holder, final int position) {
-        holder.title.setText(base.get(position).getTitulo());
-        holder.title.setOnClickListener(view -> {
+    public void onBindViewHolder(@NonNull PalestraViewHolder holder, final int position) {
+        Palestra p = base.get(position);
+        Picasso.with(context).load(Uri.parse(""+p.getImagem()))
+                .error(R.drawable.ic_launcher_background)
+                .into(holder.imagemPalestra);
+        holder.titulo.setText(String.format("Titulo: %s", p.getTitulo()));
+        holder.palestrante.setText(String.format("Palestrante: %s", p.getPalestrante()));
+        holder.data.setText(String.format("Data: %s", p.getData()));
+        holder.hora.setText(String.format("Horário: %s", p.getHora()));
+        if(p.getQtdVagasDisponiveis()==0){
+            holder.vagas.setTextColor(context.getResources().getColor(R.color.vermelho));
+            holder.vagas.setText(context.getString(R.string.vagas_estotadas));
+        }else{
+            holder.vagas.setTextColor(context.getResources().getColor(android.R.color.darker_gray));
+            holder.vagas.setText(String.format("Vagas: %s",p.getQtdVagasDisponiveis()));
+
+        }
+        holder.verMais.setOnClickListener(view -> {
             onItemClicked.onItemClicked(base.get(position), position);
         });
 

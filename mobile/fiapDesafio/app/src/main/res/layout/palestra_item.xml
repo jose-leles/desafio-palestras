@@ -8,28 +8,33 @@
     android:padding="5dp">
 
     <android.support.v7.widget.CardView
-        android:layout_height="match_parent"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         card_view:cardBackgroundColor="@android:color/white"
         card_view:cardElevation="2dp"
         card_view:cardUseCompatPadding="true"
         app:cardElevation="5dp"
+        android:padding="5dp"
         >
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1">
 
             <ImageView
-                android:layout_width="85dp"
+                android:id="@+id/imagem_palestra"
+                android:layout_width="0dp"
                 android:layout_height="85dp"
                 android:layout_margin="10dp"
+                android:layout_weight="0.2"
                 android:src="@mipmap/ic_launcher"/>
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="0.68">
 
                 <TextView
                     android:id="@+id/titulo_palestra"
@@ -37,16 +42,47 @@
                     android:layout_height="wrap_content"
                     android:text="Gestão de pessoas por competencias"/>
                 <TextView
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/palestrante_palestra"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:text="Palestrante: Maria dos Anjos"/>
+                <LinearLayout
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/data_palestra"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Data: 17/09/2019"/>
+                    <TextView
+                        android:layout_marginStart="10dp"
+                        android:id="@+id/hora_palestra"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hora: 19h20"/>
+                        />
+                </LinearLayout>
                 <TextView
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/vagas_palestra"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:text="Vagas: 3"/>
             </LinearLayout>
 
+            <Button
+                android:id="@+id/btn_vermais"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/padrao_botoes"
+                android:text="Ver mais"
+                android:layout_gravity="center"
+                android:textSize="11dp"
+                android:layout_weight="0.12"
+                />
         </LinearLayout>
     </android.support.v7.widget.CardView>
 
