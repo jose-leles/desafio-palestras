@@ -45,6 +45,8 @@ public class Palestra implements Parcelable {
     private String horaInscricao;
 
 
+    public Palestra(){}
+
     public Palestra(Parcel source){
         codigo = source.readInt();
         codigoTipoCategoria= source.readInt();
@@ -103,43 +105,43 @@ public class Palestra implements Parcelable {
 
     public String getImagem() { return imagem; }
 
-    public void setImagem(String imagem) { imagem = imagem; }
+    public void setImagem(String imagem) { this.imagem = imagem; }
 
     public String getTitulo() { return titulo; }
 
-    public void setTitulo(String titulo) { titulo = titulo; }
+    public void setTitulo(String titulo) { this.titulo = titulo; }
 
     public String getPalestrante() { return palestrante; }
 
-    public void setPalestrante(String palestrante) { palestrante = palestrante; }
+    public void setPalestrante(String palestrante) { this.palestrante = palestrante; }
 
     public String getDescricao() { return descricao; }
 
-    public void setDescricao(String descricao) { descricao = descricao; }
+    public void setDescricao(String descricao) { this.descricao = descricao; }
 
     public String getData() { return data; }
 
-    public void setData(String data) { data = data; }
+    public void setData(String data) { this.data = data; }
 
     public String getHora() { return hora; }
 
-    public void setHora(String hora) { hora = hora; }
+    public void setHora(String hora) { this.hora = hora; }
 
     public int getQtdVagasDisponiveis() { return qtdVagasDisponiveis; }
 
-    public void setQtdVagasDisponiveis(int qtdVagasDisponiveis) { qtdVagasDisponiveis = qtdVagasDisponiveis; }
+    public void setQtdVagasDisponiveis(int qtdVagasDisponiveis) { this.qtdVagasDisponiveis = qtdVagasDisponiveis; }
 
     public String getEmailCadastrado() { return emailCadastrado; }
 
-    public void setEmailCadastrado(String emailCadastrado) { emailCadastrado = emailCadastrado; }
+    public void setEmailCadastrado(String emailCadastrado) { this.emailCadastrado = emailCadastrado; }
 
     public String getDataInscricao() { return dataInscricao; }
 
-    public void setDataInscricao(String dataInscricao) { dataInscricao = dataInscricao; }
+    public void setDataInscricao(String dataInscricao) { this.dataInscricao = dataInscricao; }
 
     public String getHoraInscricao() { return horaInscricao; }
 
-    public void setHoraInscricao(String horaInscricao) { horaInscricao = horaInscricao; }
+    public void setHoraInscricao(String horaInscricao) { this.horaInscricao = horaInscricao; }
 
 
 }

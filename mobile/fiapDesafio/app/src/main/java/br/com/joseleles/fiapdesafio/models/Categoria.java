@@ -19,6 +19,7 @@ public class Categoria implements Parcelable {
     private List<Palestra> palestras;
 
 
+    public Categoria(){}
 
     public Categoria(Parcel source){
         codigo = source.readInt();
@@ -52,23 +53,17 @@ public class Categoria implements Parcelable {
     }
 
 
-
-
-
-
-
-
     public int getCodigo() {return codigo; }
 
-    public void setCodigo(int codigo) { codigo = codigo; }
+    public void setCodigo(int codigo) { this.codigo = codigo; }
 
     public String getDescricao() { return descricao; }
 
-    public void setDescricao(String descricao) { descricao = descricao; }
+    public void setDescricao(String descricao) { this.descricao = descricao; }
 
-    public List<br.com.joseleles.fiapdesafio.models.Palestra> getPalestra() { return palestras; }
+    public List<Palestra> getPalestras() { return palestras; }
 
-    public void setPalestra(List<Palestra> palestra) { palestras = palestra; }
+    public void setPalestras(List<Palestra> palestras) { this.palestras = palestras; }
 
 
 }
