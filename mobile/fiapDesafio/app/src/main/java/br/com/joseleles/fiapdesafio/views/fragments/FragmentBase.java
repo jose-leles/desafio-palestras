@@ -1,6 +1,8 @@
 package br.com.joseleles.fiapdesafio.views.fragments;
 
-public abstract class FragmentBase {
+import android.support.v4.app.Fragment;
+
+public abstract class FragmentBase extends Fragment {
 
 
 }

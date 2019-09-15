@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/holder_geral"
@@ -8,17 +9,30 @@
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
+
     <!--Isso aqui é minha barra superior-->
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="?attr/actionBarSize">
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+    </LinearLayout>
+
+
+
+    <!--Essa é minha view que vai guardar as telas-->
+    <!--Ela é importante pois toda navegação vai acontecer nela-->
+    <!--Usando o FragmentManager eu vou empilhar e desenpilhar Fragments nela-->
+    <LinearLayout
+        android:id="@+id/fundo_para_preencher"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
     </LinearLayout>
 
     <!--Esse é meu menu que recolhe-->
@@ -30,15 +44,5 @@
         app:headerLayout="@layout/nav_menu_esquerdo"
         app:menu="@menu/menu_esquerdo"
         />
-
-    <!--Essa é minha view que vai guardar as telas-->
-    <!--Ela é importante pois toda navegação vai acontecer nela-->
-    <!--Usando o FragmentManager eu vou empilhar e desenpilhar Fragments nela-->
-    <LinearLayout
-        android:id="@+id/fundo_para_preencher"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-    </LinearLayout>
 
 </android.support.v4.widget.DrawerLayout>
