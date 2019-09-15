@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <group>
         <item android:id="@+id/group_categorias"
             android:icon="@drawable/ic_magnifying_glass"
             android:title="@string/filtrar_por_categorias" >
             <menu>
-                <item
-                    android:title="Item 1" >
-                </item>
+                <item android:title="loading"
+                    app:showAsAction="always"
+                    app:actionViewClass="android.widget.Spinner"
+                    />
             </menu>
         </item>
 

@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,10 +19,11 @@ import br.com.joseleles.fiapdesafio.R;
 import br.com.joseleles.fiapdesafio.models.Categoria;
 import br.com.joseleles.fiapdesafio.models.Palestra;
 import br.com.joseleles.fiapdesafio.views.adapters.AdaperPalestras;
+import br.com.joseleles.fiapdesafio.views.adapters.DelegateAdapterOnItemClick;
 import br.com.joseleles.fiapdesafio.views.adapters.SeccionadorDeAdapterPalestra;
 import br.com.joseleles.fiapdesafio.views.adapters.SeccionadorDeAdapterPalestra.Seccao;
 
-public class FragmentPalestras extends FragmentBase {
+public class FragmentPalestras extends FragmentBase implements DelegateAdapterOnItemClick<Palestra> {
 
     RecyclerView reciclerView;
     AdaperPalestras adpter;
@@ -85,7 +87,7 @@ public class FragmentPalestras extends FragmentBase {
             }
         }
 
-        adpter = new AdaperPalestras(getContext(), listaCompleta);
+        adpter = new AdaperPalestras(getContext(), listaCompleta, this);
 
         //Add your adapter to the sectionAdapter
         SeccionadorDeAdapterPalestra adaperSeccionado = new
@@ -97,4 +99,9 @@ public class FragmentPalestras extends FragmentBase {
 
     }
 
+    @Override
+    public void onItemClicked(Palestra clicado, int position) {
+        // TODO: ver detalhes
+        Toast.makeText(getContext(),"Position ="+position,Toast.LENGTH_SHORT).show();
+    }
 }

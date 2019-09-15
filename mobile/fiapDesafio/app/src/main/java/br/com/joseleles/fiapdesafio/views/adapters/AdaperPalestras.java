@@ -2,7 +2,6 @@ package br.com.joseleles.fiapdesafio.views.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +17,7 @@ import br.com.joseleles.fiapdesafio.models.Palestra;
 public class AdaperPalestras extends RecyclerView.Adapter<AdaperPalestras.PalestraViewHolder> {
 
     private final Context context;
+    private DelegateAdapterOnItemClick<Palestra> onItemClicked;
     private List<Palestra> base;
 
     public void add(Palestra s,int position) {
@@ -42,8 +42,9 @@ public class AdaperPalestras extends RecyclerView.Adapter<AdaperPalestras.Palest
         }
     }
 
-    public AdaperPalestras(Context context, List<Palestra> data) {
+    public AdaperPalestras(Context context, List<Palestra> data, DelegateAdapterOnItemClick<Palestra> onItemClick) {
         this.context = context;
+        this.onItemClicked = onItemClick;
         if (data != null)
             base = new ArrayList<Palestra>(data);
         else base = new ArrayList<>();
@@ -57,7 +58,10 @@ public class AdaperPalestras extends RecyclerView.Adapter<AdaperPalestras.Palest
     @Override
     public void onBindViewHolder(PalestraViewHolder holder, final int position) {
         holder.title.setText(base.get(position).getTitulo());
-        holder.title.setOnClickListener(view -> Toast.makeText(context,"Position ="+position,Toast.LENGTH_SHORT).show());
+        holder.title.setOnClickListener(view -> {
+            onItemClicked.onItemClicked(base.get(position), position);
+        });
+
     }
 
     @Override
