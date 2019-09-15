@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:textColor="@color/colorAccent"
-        android:text="FIAP CARAI"
+        android:text="teste de alinhamento"
         android:textSize="20dp"
         android:layout_gravity="center"/>
 
