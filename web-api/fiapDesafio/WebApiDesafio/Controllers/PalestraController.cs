@@ -32,9 +32,9 @@ namespace WebApiDesafio.Controllers{
 
         [HttpGet]
         [Route("palestra/detalhes/{id}")]
-        public IHttpActionResult VerDetalhes(int id){
+        public IHttpActionResult VerDetalhes(int id, string emailUsuario){
             if(id > 1){
-                Palestra palestra = new PalestraDAO().GetById(id);
+                Palestra palestra = new PalestraDAO().GetById(id,emailUsuario);
                 return Json(palestra);
             }
             return Json(new SimpleReturn("codigo de palestra invalido",false));

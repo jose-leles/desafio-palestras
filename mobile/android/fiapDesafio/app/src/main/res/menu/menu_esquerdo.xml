@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group>
+        <item android:id="@+id/group_categorias"
+            android:icon="@drawable/ic_magnifying_glass"
+            android:title="@string/filtrar_por_categorias" >
+            <menu>
+                <item
+                    android:title="Item 1" >
+                </item>
+            </menu>
+        </item>
+
+    </group>
+
+
+    <group>
+        <item android:id="@+id/group_opcoes"
+            android:icon="@drawable/ic_list"
+            android:title="@string/minhas_opcoes" >
+            <menu>
+                <item
+                    android:id="@+id/item_ver_inscricoes"
+                    android:title="Ver Minhas Inscrições" >
+                </item>
+            </menu>
+        </item>
+
+    </group>
+</menu>

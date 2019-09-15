@@ -12,7 +12,8 @@ namespace WebApiDesafio.DAO{
         public List<Palestra> ListarPalestras(){
             SqlConnection conn;
             List<Palestra> lista = new List<Palestra>();
-            String query = "SELECT * FROM vPalestra";
+            String query = @"SELECT * FROM vPalestra 
+                        ORDER BY vPalestra.Data, vPalestra.Hora ASC";
             try{
                 conn = DatabaseConnection.GetConnection();
                 SqlCommand cmd = new SqlCommand(query, conn);
@@ -74,6 +75,49 @@ namespace WebApiDesafio.DAO{
             return palestra;
         }
 
+        public Palestra GetById(int id,string emailUsuario){
+            SqlConnection conn;
+            Palestra palestra = null;
+            String query = @"SELECT * FROM vPalestra 
+                        LEFT JOIN vInscricao ON (vPalestra.Codigo = vInscricao.CodigoPalestra AND vInscricao.Email like @email )
+                        WHERE vPalestra.Codigo = @id";
+            try
+            {
+                conn = DatabaseConnection.GetConnection();
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("id", id);
+                cmd.Parameters.AddWithValue("email", emailUsuario);
+                conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    palestra = new Palestra
+                    {
+                        Codigo = Convert.ToInt32(reader["Codigo"]),
+                        CodigoTipoCategoria = Convert.ToInt32(reader["CodigoTipoCategoria"]),
+                        Imagem = reader["Imagem"].ToString(),
+                        Titulo = reader["Titulo"].ToString(),
+                        Palestrante = reader["Palestrante"].ToString(),
+                        Descricao = reader["Descricao"].ToString(),
+                        Data = reader["Data"].ToString(),
+                        Hora = reader["Hora"].ToString(),
+                        QtdVagasDisponiveis = Convert.ToInt32(reader["QtdVagasDisponiveis"])
+                    };
+                    if(reader["Email"] != null){
+                        palestra.EmailCadastrado = emailUsuario;
+                        palestra.DataInscricao = reader["DataCadastro"].ToString();
+                        palestra.HoraInscricao = reader["HoraCadastro"].ToString();
+                    }
+                }
+                DatabaseConnection.CloseConnection(conn);
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+            return palestra;
+        }
+
         public List<Palestra> ListarPaleastraPorEmail(string emailUsuario)
         {
             SqlConnection conn;
@@ -81,7 +125,8 @@ namespace WebApiDesafio.DAO{
             String query = @"SELECT * FROM vPalestra 
                             INNER JOIN vInscricao 
                             ON (vPalestra.Codigo = vInscricao.CodigoPalestra) 
-                            WHERE vInscricao.Email like @email";
+                            WHERE vInscricao.Email like @email
+                            ORDER BY vPalestra.Data DESC";
             try{
                 conn = DatabaseConnection.GetConnection();
                 SqlCommand cmd = new SqlCommand(query, conn);

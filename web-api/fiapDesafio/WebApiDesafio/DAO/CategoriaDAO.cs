@@ -12,7 +12,8 @@ namespace WebApiDesafio.DAO{
         public List<Categoria> ListarCategorias(){
             SqlConnection conn;
             List<Categoria> lista = new List<Categoria>();
-            String query = "SELECT * FROM vTipoCategoria";
+            String query = @"SELECT * FROM vTipoCategoria
+                            ORDER BY vTipoCategoria.Descricao ASC";
             try{
                 conn = DatabaseConnection.GetConnection();
                 SqlCommand cmd = new SqlCommand(query, conn);
