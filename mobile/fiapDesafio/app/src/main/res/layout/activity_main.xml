@@ -9,30 +9,40 @@
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
-
-    <!--Isso aqui é minha barra superior-->
+    <!--o Linear Layout abaixo segura o topo e o contudo um abaixo do outro-->
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize">
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
-    </LinearLayout>
-
-
-
-    <!--Essa é minha view que vai guardar as telas-->
-    <!--Ela é importante pois toda navegação vai acontecer nela-->
-    <!--Usando o FragmentManager eu vou empilhar e desenpilhar Fragments nela-->
-    <LinearLayout
-        android:id="@+id/fundo_para_preencher"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
+        <!--Isso aqui é minha barra superior-->
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize">
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+        </LinearLayout>
+
+
+
+        <!--Essa é minha view que vai guardar as telas-->
+        <!--Ela é importante pois toda navegação vai acontecer nela-->
+        <!--Usando o FragmentManager eu vou empilhar e desenpilhar Fragments nela-->
+        <LinearLayout
+            android:id="@+id/fundo_para_preencher"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+        </LinearLayout>
+
+
+
+
     </LinearLayout>
 
     <!--Esse é meu menu que recolhe-->
