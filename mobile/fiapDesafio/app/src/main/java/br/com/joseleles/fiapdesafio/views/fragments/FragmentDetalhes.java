@@ -88,6 +88,12 @@ public class FragmentDetalhes extends FragmentBase {
             v.setVisibility(View.GONE);
             btnEnviar.setVisibility(View.VISIBLE);
         });
+        if(palestra.getQtdVagasDisponiveis() ==0){
+            btnInscrever.setVisibility(View.GONE);
+            textAgendado.setVisibility(View.VISIBLE);
+            textAgendado.setTextColor(getResources().getColor(R.color.vermelho));
+            textAgendado.setText(String.format(getString(R.string.vagas_estotadas_detalhes)));
+        }
 
         btnEnviar = root.findViewById(R.id.button_enviar_solicitacao);
         btnEnviar.setOnClickListener(v->{

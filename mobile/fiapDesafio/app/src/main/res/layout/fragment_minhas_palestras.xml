@@ -32,9 +32,9 @@
         android:layout_height="0dp"
         android:layout_gravity="center"
         android:layout_margin="5dp"
-        android:text="Lista de minhas inscrições vazia no momento."
+        android:text="Você não esta inscrito em nenhuma palestra."
         android:textAlignment="center"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/vermelho"
         android:textSize="20dp"
         android:visibility="gone"
         android:layout_weight="0.92"/>

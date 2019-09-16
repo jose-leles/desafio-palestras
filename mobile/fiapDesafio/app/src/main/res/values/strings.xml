@@ -9,4 +9,5 @@
     <string name="no">Não</string>
     <string name="ok">Ok</string>
     <string name="text_agendado" >Você está inscrito desde %s %s</string>
+    <string name="vagas_estotadas_detalhes">Vagas esgotadas!</string>
 </resources>
