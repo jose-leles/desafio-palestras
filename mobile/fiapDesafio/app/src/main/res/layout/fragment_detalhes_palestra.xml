@@ -17,6 +17,7 @@
             android:layout_height="wrap_content"
             android:text="Gestão de Pessosas"
             android:padding="5dp"
+            android:textColor="@android:color/white"
             android:background="@drawable/categoria_badge"
             />
 
@@ -107,6 +108,7 @@
                     android:id="@+id/text_nome"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:textSize="16dp"
                     android:layout_weight="0.8"
                     />
 
@@ -132,6 +134,8 @@
                     android:id="@+id/text_email"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+
+                    android:textSize="16dp"
                     android:layout_weight="0.8"
                     />
 
@@ -156,6 +160,8 @@
                     android:id="@+id/text_empresa"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+
+                    android:textSize="16dp"
                     android:layout_weight="0.8"
                     />
 
@@ -181,6 +187,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.8"
+                    android:textSize="16dp"
                     />
 
             </LinearLayout>

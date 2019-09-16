@@ -4,36 +4,40 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:padding="5dp">
+    android:padding="5dp"
+    android:weightSum="1">
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_gravity="center"
         android:layout_margin="5dp"
         android:text="Minhas Inscrições"
         android:textAlignment="center"
         android:textColor="@color/colorAccent"
-        android:textSize="20dp" />
+        android:textSize="20dp"
+        android:layout_weight="0.08"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/lista_palestras"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="0dp"
+        android:layout_weight="0.92">
 
     </android.support.v7.widget.RecyclerView>
 
     <TextView
         android:id="@+id/aviso_erro"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_gravity="center"
         android:layout_margin="5dp"
-        android:text="Lista de palestras vazia no momento."
+        android:text="Lista de minhas inscrições vazia no momento."
         android:textAlignment="center"
         android:textColor="@color/colorAccent"
         android:textSize="20dp"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        android:layout_weight="0.92"/>
 
     <Button
         android:id="@+id/button_voltar_home"
@@ -46,6 +50,7 @@
         android:textAlignment="center"
         android:gravity="center"
         android:textColor="@android:color/white"
+        android:layout_weight="0.02"
         />
 
 </LinearLayout>

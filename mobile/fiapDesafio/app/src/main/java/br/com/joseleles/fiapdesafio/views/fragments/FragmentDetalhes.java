@@ -15,6 +15,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import br.com.joseleles.fiapdesafio.R;
+import br.com.joseleles.fiapdesafio.controllers.DAOs.UsuarioDAO;
 import br.com.joseleles.fiapdesafio.controllers.providers.consumers.PalestraAPI;
 import br.com.joseleles.fiapdesafio.controllers.providers.retrofit.Callback;
 import br.com.joseleles.fiapdesafio.controllers.providers.retrofit.Message;
@@ -92,6 +93,8 @@ public class FragmentDetalhes extends FragmentBase {
         btnEnviar.setOnClickListener(v->{
             Usuario informacoes = validaFormularioParaEnvio();
             if(informacoes != null && getContext() !=null){
+                new UsuarioDAO(getContext()).deleteOthersEmail();
+                new UsuarioDAO(getContext()).insertEmail(informacoes.getEmail());
                 new PalestraAPI().inscreverUsuario(getContext(), informacoes,palestra.getCodigo()
                         , new Callback<Message, Message>(){
 
@@ -153,7 +156,8 @@ public class FragmentDetalhes extends FragmentBase {
 
     public void populateDetalhes(){
         if(getContext()!=null){
-            new PalestraAPI().getDetalhesOfPalestra(getContext(), "jojeca.leles@gmail.com", palestra.getCodigo(), new Callback<Palestra, Message>() {
+            String emailLogado = new UsuarioDAO(getContext()).getEmail();
+            new PalestraAPI().getDetalhesOfPalestra(getContext(), emailLogado, palestra.getCodigo(), new Callback<Palestra, Message>() {
                 @Override
                 public void sucesso(Palestra palestra) {
                     if(palestra!=null){

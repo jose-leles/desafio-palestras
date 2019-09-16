@@ -15,14 +15,15 @@
         android:id="@+id/nav_header_imageView"
         android:layout_width="64dp"
         android:layout_height="64dp"
-        android:src="@drawable/ic_lecture"/>
+        android:src="@drawable/ic_lecture"
+        android:tint="@color/colorPrimary"/>
 
     <TextView
         android:id="@+id/nav_header_textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="16dp"
-        android:text="Lecture Challenge"
+        android:text="Fiap Palestras"
         android:textSize="20dp"
         android:textColor="@color/colorPrimary"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />

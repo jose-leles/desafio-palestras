@@ -56,6 +56,9 @@ public class FragmentPalestras extends FragmentBase implements DelegateAdapterOn
 
         reciclerView.addItemDecoration(new DividerItemDecoration(getContext(),LinearLayoutManager.VERTICAL));
 
+        if(savedInstanceState != null){
+            filtro = savedInstanceState.getParcelable(BundleTags.FILTRO_PALESTRAS);
+        }
         if(filtro!=null){
             root.findViewById(R.id.button_limpar_filtro).setVisibility(View.VISIBLE);
             root.findViewById(R.id.button_limpar_filtro).setOnClickListener(v->{
@@ -179,5 +182,11 @@ public class FragmentPalestras extends FragmentBase implements DelegateAdapterOn
 
     public void setCategoriaFiltro(Categoria filtro){
         this.filtro = filtro;
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(BundleTags.FILTRO_PALESTRAS,filtro);
     }
 }

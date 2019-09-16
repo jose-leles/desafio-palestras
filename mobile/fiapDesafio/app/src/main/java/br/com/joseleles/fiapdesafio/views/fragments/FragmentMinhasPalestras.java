@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.joseleles.fiapdesafio.R;
+import br.com.joseleles.fiapdesafio.controllers.DAOs.UsuarioDAO;
 import br.com.joseleles.fiapdesafio.controllers.providers.consumers.PalestraAPI;
 import br.com.joseleles.fiapdesafio.controllers.providers.retrofit.Callback;
 import br.com.joseleles.fiapdesafio.controllers.providers.retrofit.Message;
@@ -68,7 +69,8 @@ public class FragmentMinhasPalestras extends FragmentBase implements DelegateAda
 
     private void populateCategoriasEPalestras() {
         if(getContext() != null){
-            new PalestraAPI().getMinhasPalestras(getContext(),"jojeca.leles@gmail.com", new Callback<List<Categoria>, Message>() {
+            String emailLogado = new UsuarioDAO(getContext()).getEmail();
+            new PalestraAPI().getMinhasPalestras(getContext(),emailLogado, new Callback<List<Categoria>, Message>() {
                 @Override
                 public void sucesso(List<Categoria> data) {
                     if(data!=null && data.size()>0){

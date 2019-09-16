@@ -161,7 +161,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         AlertDialog.OnClickListener paraDeslogar = (dialog, which) -> {
             if(which == AlertDialog.BUTTON_POSITIVE){
                 finish();
@@ -177,10 +176,7 @@ public class MainActivity extends AppCompatActivity {
             alert.setNegativeButton(getText(R.string.no),paraDeslogar);
             alert.show();
         }
+        super.onBackPressed();
     }
 
-//    private void abrirMenu() {
-//        if(containerActivity!= null)
-//            containerActivity.openDrawer(menuLateral);
-//    }
 }

@@ -9,21 +9,25 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static String table_name = "usuario";
-    private static int version_bd = 1;
-    private Context context;
+    public static String TABLE_NAME = "usuario";
+    public static String FIELD_EMAIL = "email";
+    private static int VERSION_BD = 1;
 
     public DatabaseHelper(Context context){
-        super(context,table_name,null,version_bd);
+        super(context, TABLE_NAME,null, VERSION_BD);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-
+        String sql = "CREATE TABLE "+ TABLE_NAME +"("
+                +"id integer primary key autoincrement,"
+                +"email text)";
+        db.execSQL(sql);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        onCreate(db);
     }
 }

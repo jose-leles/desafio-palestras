@@ -64,7 +64,7 @@ public class AdaperPalestras extends RecyclerView.Adapter<AdaperPalestras.Palest
                 ,p.getImagem())))
                     .error(R.drawable.ic_launcher_background)
                     .into(holder.imagemPalestra);
-        holder.titulo.setText(String.format("Titulo: %s", p.getTitulo()));
+        holder.titulo.setText(p.getTitulo());
         holder.palestrante.setText(String.format("Palestrante: %s", p.getPalestrante()));
         holder.data.setText(String.format("Data: %s", p.getData()));
         holder.hora.setText(String.format("Horário: %s", p.getHora()));

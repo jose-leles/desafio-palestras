@@ -86,7 +86,7 @@ namespace WebApiDesafio.DAO{
                 conn = DatabaseConnection.GetConnection();
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("id", id);
-                cmd.Parameters.AddWithValue("email", emailUsuario);
+                cmd.Parameters.AddWithValue("email", emailUsuario==null?"":emailUsuario);
                 conn.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
                 if (reader.Read())

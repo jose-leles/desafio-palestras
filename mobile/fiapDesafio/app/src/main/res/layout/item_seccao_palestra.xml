@@ -7,6 +7,9 @@
         android:id="@+id/titulo_seccao_categoria"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/colorPrimary"
+        android:background="@android:color/black"
+        android:padding="5dp"
         />
 
 </LinearLayout>
