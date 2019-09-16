@@ -8,7 +8,7 @@ Consiste em um teste onde foi desenvolvido uma Web API feita em ASP.Net C# consu
 ## Como rodar?
 
 ### Primeiro passo 
-rodar o banco de dados no SQL Server com o script que esta no diretorio <a href="/blob/master/banco/Database.sql"> /banco/Database.sql </a>
+rodar o banco de dados no SQL Server com o script que esta no diretorio <a href="https://github.com/jose-leles/desafio-palestras/blob/master/banco/Database.sql"> /banco/Database.sql </a>
 
 
 
@@ -26,15 +26,15 @@ Mudar a connectionString no arquivo web.config da web api asp.net
   Para autenticação utilizando usuario sql server pode se utilizar da seguinte forma **connectionString="Server=HOST;Database=BANCO;User Id=USER;
 Password=SENHA;"**
 
-  Este arquivo se encontra no seguinte diretorio: <a href="/blob/master/web-api/fiapDesafio/WebApiDesafio/Web.config"> /web-api/asp.net/fiapDesafio/WebApiDesafio/web.config </a>
+  Este arquivo se encontra no seguinte diretorio: <a href="https://github.com/jose-leles/desafio-palestras/blob/master/web-api/fiapDesafio/WebApiDesafio/Web.config"> /web-api/asp.net/fiapDesafio/WebApiDesafio/web.config </a>
 
 
 
 ### Terceiro passo
 Mudar a url a qual o app está apontando para consumir a web API.
-Para mais detalhes sobre este modo de controlar as url de consumo veja readme do app mobile <a href="/blob/master/mobile/README.md">readme.md</a>
+Para mais detalhes sobre este modo de controlar as url de consumo veja readme do app mobile <a href="https://github.com/jose-leles/desafio-palestras/blob/master/mobile/README.md">readme.md</a>
 ``` 
 # deve conter a barra no final
 url_base=http://YOUR_SERVER_ADDRESS/
 ```
-<a href="/blob/master/mobile/fiapDesafio/app/src/main/assets/homologacao.properties"> /mobile/android/fiapDesafio/assets/homologacao.properties </a>
+<a href="https://github.com/jose-leles/desafio-palestras/blob/master/mobile/fiapDesafio/app/src/main/assets/homologacao.properties"> /mobile/android/fiapDesafio/assets/homologacao.properties </a>
