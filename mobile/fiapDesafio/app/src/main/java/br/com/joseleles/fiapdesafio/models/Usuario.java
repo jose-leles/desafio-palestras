@@ -6,6 +6,7 @@ import android.os.Parcelable;
 public class Usuario implements Parcelable {
     private int codigo;
     private String nome;
+    private String senha;
     private String email;
     private String empresa;
     private String cargo;
@@ -18,6 +19,7 @@ public class Usuario implements Parcelable {
         this.codigo = source.readInt();
         this.nome = source.readString();
         this.cargo = source.readString();
+        this.senha = source.readString();
         this.empresa = source.readString();
         this.email = source.readString();
     }
@@ -42,6 +44,10 @@ public class Usuario implements Parcelable {
 
     public void setCargo(String cargo) {this.cargo = cargo;}
 
+    public void setSenha(String senha) { this.senha = senha; }
+
+    public String getSenha() { return senha; }
+
     @Override
     public int describeContents() {
         return 0;
@@ -52,6 +58,7 @@ public class Usuario implements Parcelable {
         dest.writeInt(codigo);
         dest.writeString(nome);
         dest.writeString(cargo);
+        dest.writeString(senha);
         dest.writeString(email);
         dest.writeString(empresa);
     }

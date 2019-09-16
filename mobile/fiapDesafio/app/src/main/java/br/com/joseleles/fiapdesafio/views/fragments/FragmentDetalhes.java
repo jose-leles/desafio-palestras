@@ -167,7 +167,7 @@ public class FragmentDetalhes extends FragmentBase {
                 @Override
                 public void sucesso(Palestra palestra) {
                     if(palestra!=null){
-                        if(palestra.getEmailCadastrado()!=null && !palestra.getEmailCadastrado().equals("") && !palestra.getEmailCadastrado().equals("null")){
+                        if(palestra.getEmailCadastrado()){
                             btnInscrever.setVisibility(View.GONE);
                             textAgendado.setVisibility(View.VISIBLE);
                             textAgendado.setText(

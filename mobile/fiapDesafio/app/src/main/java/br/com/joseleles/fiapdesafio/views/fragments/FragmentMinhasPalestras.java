@@ -22,6 +22,7 @@ import br.com.joseleles.fiapdesafio.controllers.providers.retrofit.Callback;
 import br.com.joseleles.fiapdesafio.controllers.providers.retrofit.Message;
 import br.com.joseleles.fiapdesafio.models.Categoria;
 import br.com.joseleles.fiapdesafio.models.Palestra;
+import br.com.joseleles.fiapdesafio.models.Usuario;
 import br.com.joseleles.fiapdesafio.views.adapters.AdaperPalestras;
 import br.com.joseleles.fiapdesafio.views.adapters.DelegateAdapterOnItemClick;
 import br.com.joseleles.fiapdesafio.views.adapters.SeccionadorDeAdapterPalestra;
@@ -65,6 +66,12 @@ public class FragmentMinhasPalestras extends FragmentBase implements DelegateAda
 
 
         return root;
+    }
+
+    public static FragmentMinhasPalestras newInstance(Usuario logado) {
+        FragmentMinhasPalestras fragment = new FragmentMinhasPalestras();
+        fragment.setLogado(logado);
+        return fragment;
     }
 
     private void populateCategoriasEPalestras() {

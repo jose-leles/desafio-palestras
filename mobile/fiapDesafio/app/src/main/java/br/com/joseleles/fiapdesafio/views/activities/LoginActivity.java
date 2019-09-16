@@ -12,12 +12,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.SubMenu;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 import br.com.joseleles.fiapdesafio.R;
+import br.com.joseleles.fiapdesafio.controllers.DAOs.UsuarioDAO;
 import br.com.joseleles.fiapdesafio.controllers.providers.consumers.CategoriasAPI;
+import br.com.joseleles.fiapdesafio.controllers.providers.consumers.UsuarioAPI;
 import br.com.joseleles.fiapdesafio.controllers.providers.retrofit.Callback;
 import br.com.joseleles.fiapdesafio.controllers.providers.retrofit.Message;
 import br.com.joseleles.fiapdesafio.models.Categoria;
@@ -31,6 +37,9 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private LinearLayout formLogin;
+    private EditText textLogin;
+    private EditText textSenha;
+    private Button buttonLogin;
 
     private LinearLayout formCadastro;
 
@@ -38,7 +47,43 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        //configurando a barra superior
+
+        formLogin = findViewById(R.id.form_login);
+
+        textLogin = findViewById(R.id.text_email_login);
+        textSenha = findViewById(R.id.text_senha);
+        buttonLogin = findViewById(R.id.button_login);
+        buttonLogin.setOnClickListener(v -> {
+            Pattern regexDeEmail = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+            if(!regexDeEmail.matcher(textLogin.getText().toString()).find()){
+                safeShowAlertDialog("Validação", "Email invalido");
+                return;
+            }
+            if(textSenha.getText().toString().length()==0){
+                safeShowAlertDialog("Validação", "Senha vazia");
+                return;
+            }
+            Usuario usuario = new Usuario();
+            usuario.setEmail(textLogin.getText().toString());
+            usuario.setSenha(textSenha.getText().toString());
+            new UsuarioAPI().logarUsuario(this, usuario, new Callback<Usuario, Message>() {
+                @Override
+                public void sucesso(Usuario autenticado) {
+                    if(autenticado!=null){
+                        UsuarioDAO dao = new UsuarioDAO(LoginActivity.this);
+                        dao.deleteOthersEmail();
+                        dao.insertEmail(autenticado.getEmail());
+                        logarAutenticado(autenticado);
+                    }
+                }
+
+                @Override
+                public void erro(Message data) {
+                    safeShowAlertDialog("Aviso", data.getMessage());
+                }
+            }, "url_base");
+        });
+
 
     }
 

@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
         navigationRecolhivel.setNavigationItemSelectedListener(menuItem -> {
             switch (menuItem.getItemId()){
                 case R.id.item_ver_inscricoes:
-                    carregarFragment(new FragmentMinhasPalestras());
+                    carregarFragment(new FragmentMinhasPalestras.newInstance(logado));
                     break;
             }
             holderDeTodaTela.closeDrawers();

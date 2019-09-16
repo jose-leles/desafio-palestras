@@ -26,10 +26,13 @@ import retrofit2.Response;
 public class UsuarioAPI {
 
     public void logarUsuario(@NonNull Context context, Usuario usuario, Callback<Usuario, Message> callback, String urlPropertie){
-        new WebConsumer(context).getEndpoint(UsuarioEndpoints.class, new DelegateConversionOfRequestAndResponse<Void, Usuario>() {
+        new WebConsumer(context).getEndpoint(UsuarioEndpoints.class, new DelegateConversionOfRequestAndResponse<Usuario, Usuario>() {
             @Override
-            public String criarJsonAPartirDoObjeto(Void corpo) throws JSONException {
-                return null;
+            public String criarJsonAPartirDoObjeto(Usuario corpo) throws JSONException {
+                JSONObject jsonUsuario = new JSONObject();
+                jsonUsuario.put("Senha",corpo.getSenha());
+                jsonUsuario.put("Email",corpo.getEmail());
+                return jsonUsuario.toString();
             }
 
             @Override
