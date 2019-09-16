@@ -56,11 +56,11 @@ public class PalestraAPI {
                         palestra.setHora(jsonPalestra.getString("Hora"));
                         palestra.setQtdVagasDisponiveis(jsonPalestra.getInt("QtdVagasDisponiveis"));
                         if(jsonPalestra.has("EmailCadastrado"))
-                            palestra.setEmailCadastrado(jsonPalestra.getString("EmailCadastrado"));
+                            palestra.setEmailCadastrado(jsonPalestra.getBoolean("EmailCadastrado"));
                         if(jsonPalestra.has("DataInscricao"))
-                            palestra.setEmailCadastrado(jsonPalestra.getString("DataInscricao"));
+                            palestra.setDataInscricao(jsonPalestra.getString("DataInscricao"));
                         if(jsonPalestra.has("HoraInscricao"))
-                            palestra.setEmailCadastrado(jsonPalestra.getString("HoraInscricao"));
+                            palestra.setHoraInscricao(jsonPalestra.getString("HoraInscricao"));
                         categoria.getPalestras().add(palestra);
                     }
                     lista.add(categoria);
@@ -111,7 +111,7 @@ public class PalestraAPI {
                     palestra.setHora(jsonPalestra.getString("Hora"));
                     palestra.setQtdVagasDisponiveis(jsonPalestra.getInt("QtdVagasDisponiveis"));
                     if(jsonPalestra.has("EmailCadastrado"))
-                        palestra.setEmailCadastrado(jsonPalestra.getString("EmailCadastrado"));
+                        palestra.setEmailCadastrado(jsonPalestra.getBoolean("EmailCadastrado"));
                     if(jsonPalestra.has("DataInscricao"))
                         palestra.setDataInscricao(jsonPalestra.getString("DataInscricao"));
                     if(jsonPalestra.has("HoraInscricao"))
@@ -215,11 +215,11 @@ public class PalestraAPI {
                         palestra.setHora(jsonPalestra.getString("Hora"));
                         palestra.setQtdVagasDisponiveis(jsonPalestra.getInt("QtdVagasDisponiveis"));
                         if(jsonPalestra.has("EmailCadastrado"))
-                            palestra.setEmailCadastrado(jsonPalestra.getString("EmailCadastrado"));
+                            palestra.setEmailCadastrado(jsonPalestra.getBoolean("EmailCadastrado"));
                         if(jsonPalestra.has("DataInscricao"))
-                            palestra.setEmailCadastrado(jsonPalestra.getString("DataInscricao"));
+                            palestra.setDataInscricao(jsonPalestra.getString("DataInscricao"));
                         if(jsonPalestra.has("HoraInscricao"))
-                            palestra.setEmailCadastrado(jsonPalestra.getString("HoraInscricao"));
+                            palestra.setHoraInscricao(jsonPalestra.getString("HoraInscricao"));
                         categoria.getPalestras().add(palestra);
                     }
                     lista.add(categoria);

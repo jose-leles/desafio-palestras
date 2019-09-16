@@ -88,7 +88,8 @@ public class FragmentMinhasPalestras extends FragmentBase implements DelegateAda
                 public void erro(Message data) {
                     avisoErro.setVisibility(View.VISIBLE);
                     reciclerView.setVisibility(View.GONE);
-                    Toast.makeText(getContext(),data.getMessage(),Toast.LENGTH_LONG);
+                    if(getContext()!=null)
+                        Toast.makeText(getContext(),data.getMessage(),Toast.LENGTH_LONG);
                 }
             }, "url_base");
 

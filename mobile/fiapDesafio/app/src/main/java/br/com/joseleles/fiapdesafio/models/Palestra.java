@@ -17,7 +17,7 @@ public class Palestra implements Parcelable {
     private int qtdVagasDisponiveis;
 
     //when listed by a user, must have this atributes on it
-    private String emailCadastrado;
+    private boolean emailCadastrado;
 
     private String dataInscricao;
 
@@ -36,7 +36,7 @@ public class Palestra implements Parcelable {
         data= source.readString();
         hora= source.readString();
         qtdVagasDisponiveis= source.readInt();
-        emailCadastrado= source.readString();
+        emailCadastrado= source.readInt() == 1;
         dataInscricao= source.readString();
         horaInscricao= source.readString();
     }
@@ -56,7 +56,7 @@ public class Palestra implements Parcelable {
         dest.writeString(data);
         dest.writeString(hora);
         dest.writeInt(qtdVagasDisponiveis);
-        dest.writeString(emailCadastrado);
+        dest.writeInt(emailCadastrado?1:0);
         dest.writeString(dataInscricao);
         dest.writeString(horaInscricao);
     }
@@ -110,9 +110,9 @@ public class Palestra implements Parcelable {
 
     public void setQtdVagasDisponiveis(int qtdVagasDisponiveis) { this.qtdVagasDisponiveis = qtdVagasDisponiveis; }
 
-    public String getEmailCadastrado() { return emailCadastrado; }
+    public boolean getEmailCadastrado() { return emailCadastrado; }
 
-    public void setEmailCadastrado(String emailCadastrado) { this.emailCadastrado = emailCadastrado; }
+    public void setEmailCadastrado(boolean emailCadastrado) { this.emailCadastrado = emailCadastrado; }
 
     public String getDataInscricao() { return dataInscricao; }
 
