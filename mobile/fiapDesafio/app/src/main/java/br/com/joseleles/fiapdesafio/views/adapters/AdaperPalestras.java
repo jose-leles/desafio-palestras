@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.joseleles.fiapdesafio.R;
+import br.com.joseleles.fiapdesafio.controllers.providers.retrofit.LeitorDeProperties;
 import br.com.joseleles.fiapdesafio.models.Palestra;
 
 public class AdaperPalestras extends RecyclerView.Adapter<AdaperPalestras.PalestraViewHolder> {
@@ -58,9 +59,11 @@ public class AdaperPalestras extends RecyclerView.Adapter<AdaperPalestras.Palest
     @Override
     public void onBindViewHolder(@NonNull PalestraViewHolder holder, final int position) {
         Palestra p = base.get(position);
-        Picasso.with(context).load(Uri.parse(""+p.getImagem()))
-                .error(R.drawable.ic_launcher_background)
-                .into(holder.imagemPalestra);
+        Picasso.with(context).load(Uri.parse(String.format("%s/Content/Imagens/%s"
+                ,new LeitorDeProperties(context).getUrlByPropertie("url_base")
+                ,p.getImagem())))
+                    .error(R.drawable.ic_launcher_background)
+                    .into(holder.imagemPalestra);
         holder.titulo.setText(String.format("Titulo: %s", p.getTitulo()));
         holder.palestrante.setText(String.format("Palestrante: %s", p.getPalestrante()));
         holder.data.setText(String.format("Data: %s", p.getData()));

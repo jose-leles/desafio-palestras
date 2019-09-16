@@ -9,13 +9,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import br.com.joseleles.fiapdesafio.R;
+import br.com.joseleles.fiapdesafio.controllers.providers.consumers.PalestraAPI;
+import br.com.joseleles.fiapdesafio.controllers.providers.retrofit.Callback;
+import br.com.joseleles.fiapdesafio.controllers.providers.retrofit.Message;
 import br.com.joseleles.fiapdesafio.models.Categoria;
 import br.com.joseleles.fiapdesafio.models.Palestra;
 import br.com.joseleles.fiapdesafio.views.adapters.AdaperPalestras;
@@ -31,6 +34,8 @@ public class FragmentMinhasPalestras extends FragmentBase implements DelegateAda
     Seccao[] mapaDasSeccoes;
     List<Palestra> listaCompleta = new ArrayList<>(); // lista sem as categorias
 
+    private TextView avisoErro;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,14 +44,20 @@ public class FragmentMinhasPalestras extends FragmentBase implements DelegateAda
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_palestras, container, false);
+        View root = inflater.inflate(R.layout.fragment_minhas_palestras, container, false);
 
         reciclerView = root.findViewById(R.id.lista_palestras);
         reciclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        avisoErro = root.findViewById(R.id.aviso_erro);
+
         reciclerView.addItemDecoration(new DividerItemDecoration(getContext(),LinearLayoutManager.VERTICAL));
 
-        populateFakeCategorias();
+        root.findViewById(R.id.button_voltar_home).setOnClickListener(v->{
+            popFragment();
+        });
+
+        populateCategoriasEPalestras();
 
         setAdpterSeccionadoParaORecyclerView(reciclerView);
 
@@ -55,36 +66,47 @@ public class FragmentMinhasPalestras extends FragmentBase implements DelegateAda
         return root;
     }
 
-    private void populateFakeCategorias() {
-        listaCategorias = new ArrayList<>();
-        listaCategorias.add(new Categoria());
-        listaCategorias.get(0).setDescricao("Tecnologia empresarial");
-        listaCategorias.get(0).setPalestras(new ArrayList<>(Arrays.asList(new Palestra(),new Palestra())));
-        listaCategorias.get(0).getPalestras().get(0).setTitulo("Gestao de pessoas por competencias");
-        listaCategorias.get(0).getPalestras().get(0).setData("19/10/2019");
-        listaCategorias.get(0).getPalestras().get(0).setHora("19h10");
-        listaCategorias.get(0).getPalestras().get(0).setImagem("3.jpg");
-        listaCategorias.get(0).getPalestras().get(0).setQtdVagasDisponiveis(1);
-        listaCategorias.get(0).getPalestras().get(0).setPalestrante("Jose Victor B. Leles");
-        listaCategorias.get(0).getPalestras().get(1).setTitulo("Gestao de pessoas por competencias 2");
-        listaCategorias.get(0).getPalestras().get(1).setData("20/10/2019");
-        listaCategorias.get(0).getPalestras().get(1).setHora("19h20");
-        listaCategorias.get(0).getPalestras().get(1).setImagem("3.jpg");
-        listaCategorias.get(0).getPalestras().get(1).setQtdVagasDisponiveis(0);
-        listaCategorias.get(0).getPalestras().get(1).setPalestrante("Jose Victor B. Leles 2");
-//        listaCategorias.add(new Categoria());
-//        listaCategorias.get(1).setDescricao("Categoria 2");
-//        listaCategorias.get(1).setPalestras(new ArrayList<>(Arrays.asList(new Palestra(),new Palestra())));
-//        listaCategorias.get(1).getPalestras().get(0).setTitulo("Elemento 3");
-//        listaCategorias.get(1).getPalestras().get(1).setTitulo("Elemento 4");
+    private void populateCategoriasEPalestras() {
+        if(getContext() != null){
+            new PalestraAPI().getMinhasPalestras(getContext(),"jojeca.leles@gmail.com", new Callback<List<Categoria>, Message>() {
+                @Override
+                public void sucesso(List<Categoria> data) {
+                    if(data!=null && data.size()>0){
+                        listaCategorias = data;
+                        reciclerView.setVisibility(View.VISIBLE);
+                        avisoErro.setVisibility(View.GONE);
+                        setAdpterSeccionadoParaORecyclerView(reciclerView);
+                    }else{
+                        avisoErro.setVisibility(View.VISIBLE);
+                        reciclerView.setVisibility(View.GONE);
+                    }
+                }
+
+                @Override
+                public void erro(Message data) {
+                    avisoErro.setVisibility(View.VISIBLE);
+                    reciclerView.setVisibility(View.GONE);
+                    Toast.makeText(getContext(),data.getMessage(),Toast.LENGTH_LONG);
+                }
+            }, "url_base");
+
+        }
     }
 
     private void setAdpterSeccionadoParaORecyclerView(RecyclerView reciclerView) {
-        // [ {0,"categoria 1"}, {3, "categoria2"}]
+        listaCompleta.clear();
+        // retirando categorias sem itens
+        for(int i=0; i<listaCategorias.size(); i++){
+            if(listaCategorias.get(i).getPalestras().size()<1){
+                listaCategorias.remove(i);
+                i--;
+            }
+        }
         mapaDasSeccoes = new Seccao[listaCategorias.size()];
         //sempre comeca onde o anterior termina
         int palestrasAdicionadas = 0;
         for(int c= 0; c<listaCategorias.size(); c++){
+
             mapaDasSeccoes[c] = new Seccao(palestrasAdicionadas,listaCategorias.get(c).getDescricao());
 
             palestrasAdicionadas += listaCategorias.get(c).getPalestras().size();
@@ -96,6 +118,7 @@ public class FragmentMinhasPalestras extends FragmentBase implements DelegateAda
                 referenciasDasPalestrasDaCategoria.remove(p);
                 p--;
             }
+
         }
 
         adpter = new AdaperPalestras(getContext(), listaCompleta, this);

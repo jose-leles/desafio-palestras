@@ -3,7 +3,6 @@
     <item android:state_enabled="true">
         <shape android:shape="rectangle" >
             <solid android:color="@color/colorPrimary" />
-            <item android:textColor="@android:color/black"/>
         </shape>
 
     </item>
@@ -11,7 +10,6 @@
     <item android:state_enabled="false">
         <shape android:shape="rectangle" >
             <solid android:color="@color/colorPrimaryOfuscado" />
-            <item android:textColor="@android:color/black"/>
         </shape>
     </item>
 </selector>

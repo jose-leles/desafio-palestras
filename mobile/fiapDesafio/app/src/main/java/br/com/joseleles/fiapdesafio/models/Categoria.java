@@ -3,19 +3,12 @@ package br.com.joseleles.fiapdesafio.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class Categoria implements Parcelable {
-    @SerializedName("Codigo")
     private int codigo;
-
-    @SerializedName("Descricao")
     private String descricao;
-
-    @SerializedName("Palestras")
     private List<Palestra> palestras;
 
 

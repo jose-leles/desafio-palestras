@@ -3,45 +3,24 @@ package br.com.joseleles.fiapdesafio.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.gson.annotations.SerializedName;
 
 public class Palestra implements Parcelable {
 
-    @SerializedName("Codigo")
     private int codigo;
-
-    @SerializedName("CodigoTipoCategoria")
     private int codigoTipoCategoria;
-
-    @SerializedName("Imagem")
     private String imagem;
-
-    @SerializedName("Titulo")
     private String titulo;
-
-    @SerializedName("Palestrante")
     private String palestrante;
-
-    @SerializedName("Descricao")
     private String descricao;
-
-    @SerializedName("Data")
     private String data;
-
-    @SerializedName("Hora")
     private String hora;
-
-    @SerializedName("QtdVagasDisponiveis")
     private int qtdVagasDisponiveis;
 
     //when listed by a user, must have this atributes on it
-    @SerializedName("EmailCadastrado")
     private String emailCadastrado;
 
-    @SerializedName("DataInscricao")
     private String dataInscricao;
 
-    @SerializedName("HoraInscricao")
     private String horaInscricao;
 
 

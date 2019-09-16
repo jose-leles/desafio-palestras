@@ -78,6 +78,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/padrao_botoes"
+                android:textColor="@android:color/white"
                 android:text="Ver mais"
                 android:layout_gravity="center"
                 android:textSize="11dp"

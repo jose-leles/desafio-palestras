@@ -177,6 +177,14 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Imagens\1.jpg" />
+    <Content Include="Content\Imagens\2.jpg" />
+    <Content Include="Content\Imagens\3.jpg" />
+    <Content Include="Content\Imagens\4.jpg" />
+    <Content Include="Content\Imagens\5.jpg" />
+    <Content Include="Content\Imagens\6.jpg" />
+    <Content Include="Content\Imagens\7.jpg" />
+    <Content Include="Content\Imagens\8.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -207,7 +215,9 @@
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

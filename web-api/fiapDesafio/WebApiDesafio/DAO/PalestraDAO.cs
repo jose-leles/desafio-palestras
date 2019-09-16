@@ -103,7 +103,8 @@ namespace WebApiDesafio.DAO{
                         Hora = reader["Hora"].ToString(),
                         QtdVagasDisponiveis = Convert.ToInt32(reader["QtdVagasDisponiveis"])
                     };
-                    if(reader["Email"] != null){
+                    if(reader["DataCadastro"] != null && !reader["DataCadastro"].ToString().Equals("") && !reader["DataCadastro"].ToString().Equals("null"))
+                    {
                         palestra.EmailCadastrado = emailUsuario;
                         palestra.DataInscricao = reader["DataCadastro"].ToString();
                         palestra.HoraInscricao = reader["HoraCadastro"].ToString();

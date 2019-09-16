@@ -75,4 +75,15 @@ public abstract class FragmentBase extends Fragment {
             alert.show();
         }
     }
+
+    public void popFragment(){
+        if(getActivity() !=null && getContext()!=null && isAdded()){
+            FragmentManager fm = getActivity().getSupportFragmentManager();
+            if(fm != null){
+                if(fm.getBackStackEntryCount() > 1){
+                    fm.popBackStack();
+                }
+            }
+        }
+    }
 }

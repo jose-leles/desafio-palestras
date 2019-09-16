@@ -15,6 +15,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import br.com.joseleles.fiapdesafio.R;
+import br.com.joseleles.fiapdesafio.controllers.providers.consumers.PalestraAPI;
+import br.com.joseleles.fiapdesafio.controllers.providers.retrofit.Callback;
+import br.com.joseleles.fiapdesafio.controllers.providers.retrofit.Message;
 import br.com.joseleles.fiapdesafio.models.Categoria;
 import br.com.joseleles.fiapdesafio.models.Palestra;
 import br.com.joseleles.fiapdesafio.models.Usuario;
@@ -61,7 +64,7 @@ public class FragmentDetalhes extends FragmentBase {
         ((TextView)root.findViewById(R.id.data_palestra_detalhes))
                 .setText(String.format("Data: %s",palestra.getData()));
         ((TextView)root.findViewById(R.id.hora_palestra_detalhes))
-                .setText(String.format("Hora: %s",palestra.getData()));
+                .setText(String.format("Horário: %s",palestra.getHora()));
 
         textDescricao = root.findViewById(R.id.descricao_palestra_detalhes);
         textDescricao.setText(palestra.getDescricao());
@@ -88,12 +91,41 @@ public class FragmentDetalhes extends FragmentBase {
         btnEnviar = root.findViewById(R.id.button_enviar_solicitacao);
         btnEnviar.setOnClickListener(v->{
             Usuario informacoes = validaFormularioParaEnvio();
-            if(informacoes != null){
-                //TODO: ENVIAR
+            if(informacoes != null && getContext() !=null){
+                new PalestraAPI().inscreverUsuario(getContext(), informacoes,palestra.getCodigo()
+                        , new Callback<Message, Message>(){
+
+                            @Override
+                            public void sucesso(Message data) {
+                                if(data.isSucesso()){
+                                    safeShowAlertDialog("Parabens!","Inscrição realizada");
+                                    btnEnviar.setVisibility(View.GONE);
+                                    textDescricao.setVisibility(View.VISIBLE);
+                                    formularioInscricao.setVisibility(View.GONE);
+                                    populateDetalhes();
+                                }else{
+                                    safeShowAlertDialog("Mensagem", data.getMessage());
+                                }
+                            }
+
+                            @Override
+                            public void erro(Message data) {
+                                safeShowAlertDialog("Mensagem", data.getMessage());
+                            }
+                        }
+                        ,"url_base");
             }
 
         });
-        
+
+
+        root.findViewById(R.id.button_voltar_detalhes).setOnClickListener(v->{
+            popFragment();
+
+        });
+
+        populateDetalhes();
+
         return root;
     }
 
@@ -120,7 +152,38 @@ public class FragmentDetalhes extends FragmentBase {
     }
 
     public void populateDetalhes(){
-        //TODO: chamar API para receber
+        if(getContext()!=null){
+            new PalestraAPI().getDetalhesOfPalestra(getContext(), "jojeca.leles@gmail.com", palestra.getCodigo(), new Callback<Palestra, Message>() {
+                @Override
+                public void sucesso(Palestra palestra) {
+                    if(palestra!=null){
+                        if(palestra.getEmailCadastrado()!=null && !palestra.getEmailCadastrado().equals("") && !palestra.getEmailCadastrado().equals("null")){
+                            btnInscrever.setVisibility(View.GONE);
+                            textAgendado.setVisibility(View.VISIBLE);
+                            textAgendado.setText(
+                                    String.format(
+                                            getString(R.string.text_agendado)
+                                            ,palestra.getDataInscricao()
+                                            ,palestra.getHoraInscricao()
+                                    )
+                            );
+                        }else if(palestra.getQtdVagasDisponiveis() > 0){
+                            btnInscrever.setEnabled(true);
+                            btnInscrever.setVisibility(View.VISIBLE);
+                        }else{
+                            btnInscrever.setVisibility(View.GONE);
+                            textAgendado.setVisibility(View.VISIBLE);
+                            textAgendado.setText(String.format(getString(R.string.vagas_estotadas)));
+                        }
+                    }
+                }
+
+                @Override
+                public void erro(Message data) {
+                    safeShowAlertDialog("Errro", data.getMessage());
+                }
+            }, "url_base");
+        }
 
     }
 
@@ -130,7 +193,7 @@ public class FragmentDetalhes extends FragmentBase {
     // "https://stackoverflow.com/questions/42266148/email-validation-regex-java" ]
     public Usuario validaFormularioParaEnvio(){
         Pattern regexDeEmail = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
-        if(textNome.getText().toString().length()>3){
+        if(textNome.getText().toString().length()<3){
             safeShowAlertDialog("Validação", "Nome muito curto");
             return null;
         }
@@ -140,12 +203,12 @@ public class FragmentDetalhes extends FragmentBase {
             return null;
         }
 
-        if(textEmpresa.getText().toString().length() > 3){
+        if(textEmpresa.getText().toString().length() < 3){
             safeShowAlertDialog("Validação", "Empresa de nome muito curto");
             return null;
         }
 
-        if(textCargo.getText().toString().length() > 3){
+        if(textCargo.getText().toString().length() < 3){
             safeShowAlertDialog("Validação", "Cargo com descricao muito curta");
             return null;
         }
