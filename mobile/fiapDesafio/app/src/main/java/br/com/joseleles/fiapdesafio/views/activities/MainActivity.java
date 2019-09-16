@@ -189,8 +189,9 @@ public class MainActivity extends AppCompatActivity {
             alert.setPositiveButton(getText(R.string.yes),paraDeslogar);
             alert.setNegativeButton(getText(R.string.no),paraDeslogar);
             alert.show();
+        }else{
+            fm.popBackStack();
         }
-        super.onBackPressed();
     }
 
 }

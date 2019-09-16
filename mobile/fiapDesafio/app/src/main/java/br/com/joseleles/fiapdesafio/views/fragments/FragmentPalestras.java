@@ -98,9 +98,11 @@ public class FragmentPalestras extends FragmentBase implements DelegateAdapterOn
 
                 @Override
                 public void erro(Message data) {
+                    if(getContext()!=null){
+                        Toast.makeText(getContext(),data.getMessage(),Toast.LENGTH_LONG);
+                    }
                     avisoErro.setVisibility(View.VISIBLE);
                     reciclerView.setVisibility(View.GONE);
-                    Toast.makeText(getContext(),data.getMessage(),Toast.LENGTH_LONG);
                 }
             }, "url_base");
 
