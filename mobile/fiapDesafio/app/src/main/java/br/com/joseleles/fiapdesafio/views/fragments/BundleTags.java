@@ -10,4 +10,6 @@ import static br.com.joseleles.fiapdesafio.views.fragments.BundleTags.*;
 @StringDef({PALESTRA_DETALHES})
 public @interface BundleTags {
     String PALESTRA_DETALHES = "PALESTRA_DETALHES";
+    String CATEGORIA_PALESTRA_DETALHES = "CATEGORIA_PALESTRA_DETALHES";
+    String TAG_FRAGMENT = "TAG_FRAGMENT";
 }

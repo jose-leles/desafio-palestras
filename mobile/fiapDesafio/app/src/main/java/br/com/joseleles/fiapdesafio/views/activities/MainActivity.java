@@ -2,10 +2,12 @@ package br.com.joseleles.fiapdesafio.views.activities;
 
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -13,6 +15,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
     private ActionBarDrawerToggle botaoDoMenu;
     private NavigationView navigationRecolhivel;
     private List<Categoria> listaDoMenuDireito;
+
+    private FragmentManager fm;
 
 
     @Override
@@ -107,22 +112,64 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void carregarFragment(FragmentBase fragment){
-        FragmentManager fm = getSupportFragmentManager();
-        if(fm != null){
-            if(fm.getBackStackEntryCount() < 2){
+
+        if(fm == null){
+            fm = getSupportFragmentManager();
+        }
+
+        if(fm != null && fm.findFragmentByTag(fragment.getTagFragment()) == null){
+            if(fm.getBackStackEntryCount() < 3){
                 fm.beginTransaction()
-                        .replace(R.id.fundo_para_preencher,fragment)
-                        .addToBackStack(fragment.getClass().getSimpleName())
+                        .replace(R.id.fundo_para_preencher,fragment, fragment.getTagFragment())
+                        .addToBackStack(fragment.getTagFragment())
                         .commit();
             }else{
                 fm.popBackStack();
                 fm.beginTransaction()
-                        .replace(R.id.fundo_para_preencher,fragment, fragment.getClass().getSimpleName())
-                        .addToBackStack(fragment.getClass().getSimpleName())
+                        .replace(R.id.fundo_para_preencher,fragment)
+                        .addToBackStack(fragment.getTagFragment())
                         .commit();
             }
+        }else if(fm!=null){
+            fm.popBackStack();
         }
+
+        if(fm!=null){
+            fm.beginTransaction()
+                    .replace(R.id.fundo_para_preencher, fragment, fragment.getTagFragment())
+                    .addToBackStack(fragment.getTagFragment())
+                    .commit();
+        }
+
+
     }
 
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        /*
+         * Mover a task dessa atividade para o fim da pilha de atividades
+         * do sistema
+         */
+        AlertDialog.OnClickListener paraDeslogar = (dialog, which) -> {
+            if(which == AlertDialog.BUTTON_POSITIVE){
+                finish();
+            }
+        };
+
+        FragmentManager fm = getSupportFragmentManager();
+        int backStackCount = fm.getBackStackEntryCount();
+        if (backStackCount > 1) {
+            fm.popBackStack();
+
+        }else{
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            alert.setTitle("Sair");
+            alert.setMessage("Deseja sair?");
+            alert.setPositiveButton(getText(R.string.yes),paraDeslogar);
+            alert.setNegativeButton(getText(R.string.no),paraDeslogar);
+            alert.show();
+        }
+    }
 }

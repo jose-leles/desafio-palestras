@@ -1,9 +1,248 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/categoria_palestra_detalhes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gestão de Pessosas"
+            android:padding="5dp"
+            android:background="@drawable/categoria_badge"
+            />
+
+        <TextView
+            android:id="@+id/titulo_palestra_detalhes"
+            android:layout_marginTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gestão de pessoas por competências"
+            android:textStyle="bold"
+            android:textSize="16dp"
+            android:padding="5dp"
+            />
+
+        <TextView
+            android:id="@+id/palestrante_palestra_detalhes"
+            android:layout_marginTop="2dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Palestrante: Maria dos Anjos"
+            android:textSize="14dp"
+            />
+
+        <LinearLayout
+            android:layout_marginTop="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/data_palestra_detalhes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Data: 16/09/2019"
+                android:textSize="14dp"
+                />
+            <TextView
+                android:id="@+id/hora_palestra_detalhes"
+                android:layout_marginStart="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Data: 16/09/2019"
+                android:textSize="14dp"
+                />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/descricao_palestra_detalhes"
+            android:layout_marginTop="15sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+            android:textSize="14dp"
+            android:visibility="gone"
+            />
+        
+        <ProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="47dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="50dp"
+            />
+
+        <LinearLayout
+            android:id="@+id/formulario_inscricao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Nome:"
+                    android:layout_weight="0.18"/>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:id="@+id/text_nome"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.8"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Email:"
+                    android:layout_weight="0.18"/>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
 
 
-    
+                <EditText
+                    android:id="@+id/text_email"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.8"
+                    />
 
-</LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Empresa:"
+                    android:layout_weight="0.18"/>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:id="@+id/text_empresa"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.8"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Cargo:"
+                    android:layout_weight="0.18"/>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:id="@+id/text_cargo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.8"
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/agendado_desde"
+            android:layout_marginTop="15sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:text="Voce está inscrito desde 12/02/2019 11h23"
+            android:textSize="14dp"
+            android:visibility="visible"
+            />
+
+        <LinearLayout
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/button_enviar_solicitacao"
+                android:layout_width="wrap_content"
+                android:layout_height="30sp"
+                android:padding="5dp"
+                android:text="Enviar Inscricao"
+                android:textSize="11dp"
+                android:background="@drawable/padrao_botoes"
+                android:enabled="false"
+                android:visibility="gone"
+                />
+
+            <Button
+                android:id="@+id/button_realizar_inscricao"
+                android:layout_width="wrap_content"
+                android:layout_height="30sp"
+                android:padding="5dp"
+                android:text="Realizar Inscricao"
+                android:textSize="11dp"
+                android:background="@drawable/padrao_botoes"
+                android:enabled="false"
+                />
+            <Button
+                android:id="@+id/button_voltar_detalhes"
+                android:layout_marginStart="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="30sp"
+                android:padding="5dp"
+                android:text="Voltar"
+                android:textSize="11dp"
+                android:background="@drawable/padrao_botoes"
+                />
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+</ScrollView>
+

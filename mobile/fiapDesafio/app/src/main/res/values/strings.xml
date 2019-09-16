@@ -5,4 +5,7 @@
     <string name="aberto">Aberto</string>
     <string name="fechado">Fechado</string>
     <string name="vagas_estotadas">Vagas: Esgotado</string>
+    <string name="yes">Sim</string>
+    <string name="no">Não</string>
+    <string name="ok">Ok</string>
 </resources>

@@ -23,7 +23,7 @@ import br.com.joseleles.fiapdesafio.views.adapters.DelegateAdapterOnItemClick;
 import br.com.joseleles.fiapdesafio.views.adapters.SeccionadorDeAdapterPalestra;
 import br.com.joseleles.fiapdesafio.views.adapters.SeccionadorDeAdapterPalestra.Seccao;
 
-public class FragmentPalestras extends FragmentBase implements DelegateAdapterOnItemClick<Palestra> {
+public class FragmentMinhasPalestras extends FragmentBase implements DelegateAdapterOnItemClick<Palestra> {
 
     RecyclerView reciclerView;
     AdaperPalestras adpter;
@@ -80,7 +80,6 @@ public class FragmentPalestras extends FragmentBase implements DelegateAdapterOn
     }
 
     private void setAdpterSeccionadoParaORecyclerView(RecyclerView reciclerView) {
-        listaCompleta.clear();
         // [ {0,"categoria 1"}, {3, "categoria2"}]
         mapaDasSeccoes = new Seccao[listaCategorias.size()];
         //sempre comeca onde o anterior termina
@@ -121,7 +120,6 @@ public class FragmentPalestras extends FragmentBase implements DelegateAdapterOn
             }
         }
         redirect(FragmentDetalhes.newInstance(clicado,categoriaDaPalestraEscolhida));
-        Toast.makeText(getContext(),"Position ="+position,Toast.LENGTH_SHORT).show();
     }
 
     @Override
