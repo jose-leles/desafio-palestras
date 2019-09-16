@@ -1,5 +1,6 @@
 package br.com.joseleles.fiapdesafio.views.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
@@ -11,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.SubMenu;
+import android.widget.LinearLayout;
 
 import java.util.List;
 
@@ -19,6 +21,7 @@ import br.com.joseleles.fiapdesafio.controllers.providers.consumers.CategoriasAP
 import br.com.joseleles.fiapdesafio.controllers.providers.retrofit.Callback;
 import br.com.joseleles.fiapdesafio.controllers.providers.retrofit.Message;
 import br.com.joseleles.fiapdesafio.models.Categoria;
+import br.com.joseleles.fiapdesafio.models.Usuario;
 import br.com.joseleles.fiapdesafio.views.fragments.BundleTags;
 import br.com.joseleles.fiapdesafio.views.fragments.FragmentBase;
 import br.com.joseleles.fiapdesafio.views.fragments.FragmentMinhasPalestras;
@@ -26,6 +29,10 @@ import br.com.joseleles.fiapdesafio.views.fragments.FragmentPalestras;
 
 public class LoginActivity extends AppCompatActivity {
 
+
+    private LinearLayout formLogin;
+
+    private LinearLayout formCadastro;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +53,14 @@ public class LoginActivity extends AppCompatActivity {
             });
             alert.show();
         }
+    }
+
+    private void logarAutenticado(Usuario autenticado){
+        Intent intent = new Intent(this, MainActivity.class);
+        Bundle extras = new Bundle();
+        extras.putParcelable(BundleTags.USUARIO_LOGADO,autenticado);
+        intent.putExtras(extras);
+        startActivity(intent);
     }
 
 

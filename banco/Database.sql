@@ -172,9 +172,9 @@ IF NOT EXISTS(SELECT * FROM sys.objects WHERE name = 'spVerificaUsuario' AND typ
 BEGIN
 	EXEC sp_executesql @statement = N'CREATE PROCEDURE spVerificaUsuario 
 		@Senha VARCHAR(25),
-		@Email VARCHAR(255),
-		BEGIN
-			IF NOT EXISTS(SELECT * FROM Usuario WHERE Email = @Email AND Senha = @Senha)
+		@Email VARCHAR(255)
+		AS BEGIN
+			IF EXISTS(SELECT * FROM Usuario WHERE Email = @Email AND Senha = @Senha)
 			BEGIN
 			    SELECT * FROM Usuario WHERE Email = @Email AND Senha = @Senha
 			END

@@ -39,7 +39,7 @@ namespace WebApiDesafio.DAO{
         public bool CadastrarUsuario(Usuario usuario){
             SqlConnection conn;
             String query = @"DECLARE @retorno smallint;
-                            EXEC spCadastrarUsuario @Senha, @Nome, @Email, @Empresa, @Cargo, @retorno;
+                            EXEC spCadastrarUsuario @Senha, @Nome, @Email, @Empresa, @Cargo, @retorno OUTPUT;
                             SELECT @retorno";
             try{
                 conn = DatabaseConnection.GetConnection();

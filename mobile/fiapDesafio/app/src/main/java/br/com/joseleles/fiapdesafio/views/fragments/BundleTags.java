@@ -14,4 +14,5 @@ public @interface BundleTags {
     String TAG_FRAGMENT = "TAG_FRAGMENT";
     String FILTRO_PALESTRAS = "FILTRO_PALESTRAS";
     String AVISO_SEM_CONEXAO = "AVISO_SEM_CONEXAO";
+    String USUARIO_LOGADO = "USUARIO_LOGADO";
 }

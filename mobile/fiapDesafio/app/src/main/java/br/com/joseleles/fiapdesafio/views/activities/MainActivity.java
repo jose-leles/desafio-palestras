@@ -22,6 +22,7 @@ import br.com.joseleles.fiapdesafio.controllers.providers.consumers.CategoriasAP
 import br.com.joseleles.fiapdesafio.controllers.providers.retrofit.Callback;
 import br.com.joseleles.fiapdesafio.controllers.providers.retrofit.Message;
 import br.com.joseleles.fiapdesafio.models.Categoria;
+import br.com.joseleles.fiapdesafio.models.Usuario;
 import br.com.joseleles.fiapdesafio.views.fragments.BundleTags;
 import br.com.joseleles.fiapdesafio.views.fragments.FragmentBase;
 import br.com.joseleles.fiapdesafio.views.fragments.FragmentMinhasPalestras;
@@ -34,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
     private NavigationView navigationRecolhivel;
     private List<Categoria> listaDoMenuDireito;
     private boolean avisoSemConexaoJaFoiDado =false;
+
+    private Usuario logado;
 
     private FragmentManager fm;
 
@@ -60,18 +63,24 @@ public class MainActivity extends AppCompatActivity {
         populateListaDeCategorias();
         setNavigationEsquerda();
 
+        //getusuario logado
+        if(getIntent()!=null && getIntent().getExtras()!=null){
+            logado = getIntent().getExtras().getParcelable(BundleTags.USUARIO_LOGADO);
+        }
+
         //carregando o primeiro fragment, só uma vez
         if(savedInstanceState == null){
             if(fm == null) fm = getSupportFragmentManager();
             carregarFragment(new FragmentPalestras());
         }else{
+            logado = savedInstanceState.getParcelable(BundleTags.USUARIO_LOGADO);
             avisoSemConexaoJaFoiDado = savedInstanceState.getBoolean(BundleTags.AVISO_SEM_CONEXAO);
         }
+
 
     }
 
     public void populateListaDeCategorias(){
-
 
         if(!isFinishing() && !isDestroyed()){
             new CategoriasAPI().getCategorias(this, new Callback<List<Categoria>, Message>() {
@@ -134,6 +143,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putBoolean(BundleTags.AVISO_SEM_CONEXAO,avisoSemConexaoJaFoiDado);
+        outState.putParcelable(BundleTags.USUARIO_LOGADO,logado);
     }
 
     private void setNavigationEsquerda() {
