@@ -1,15 +1,40 @@
 # Desafio Palestras
 
-# What is that? and Why?
+## Introdução
 
-That is a challenge test for fiap, consists in a web api and a mobile app to schedule places in a events of a bancary agency
+Consiste em um teste onde foi desenvolvido uma Web API feita em ASP.Net C# consumindo um banco em SQL Server e um App mobile feito em Android Java com o intuito de divulgação e controle de inscrições de um evento de ciclo de palestras de uma empresa Ficticia X.
 
 
-# How To Run it
+## Como rodar?
 
-1 - first step: run our database in SQL Server with script in <a href=""> /banco/Database.sql </a>
+### Primeiro passo 
+rodar o banco de dados no SQL Server com o script que esta no diretorio <a href="https://github.com/jose-leles/desafio-palestras/blob/master/banco/Database.sql"> /banco/Database.sql </a>
 
-2 - second step: make sure that your connectionString in web.config of asp.net web api is aponting to your database server <a href=""> /web-api/asp.net/fiapDesafio/WebApiDesafio/web.config </a>
 
-3 - third step: the android .apk is already build in <a href=""> /mobile/android/fiapDesafio/build/app-release.apk </a>. But yout also can build in Android Studio by opening the project there.
-(Atention, the App is apointing to localhost, the smartphone and the web api server most be in the same network, if it doesn't change the apoint of the in  <a href=""> /mobile/android/fiapDesafio/assets/urls.properties </a>)
+
+### Segundo passo
+Mudar a connectionString no arquivo web.config da web api asp.net
+``` 
+  <configuration>
+    <connectionStrings>
+      <add name="conexaoProvaMobile" connectionString="server=JOSELELES-PC\SQLEXPRESS;database=ProvaMobile;Integrated Security=true;" providerName="System.Data.SqlClient"/>
+    </connectionStrings>
+    ...
+```
+  No meu caso eu estava rodando local com a autenticacao da maquina.
+  
+  Para autenticação utilizando usuario sql server pode se utilizar da seguinte forma **connectionString="Server=HOST;Database=BANCO;User Id=USER;
+Password=SENHA;"**
+
+  Este arquivo se encontra no seguinte diretorio: <a href="https://github.com/jose-leles/desafio-palestras/blob/master/web-api/fiapDesafio/WebApiDesafio/Web.config"> /web-api/asp.net/fiapDesafio/WebApiDesafio/web.config </a>
+
+
+
+### Terceiro passo
+Mudar a url a qual o app está apontando para consumir a web API.
+Para mais detalhes sobre este modo de controlar as url de consumo veja readme do app mobile <a href="https://github.com/jose-leles/desafio-palestras/blob/master/mobile/README.md">readme.md</a>
+``` 
+# deve conter a barra no final
+url_base=http://YOUR_SERVER_ADDRESS/
+```
+<a href="https://github.com/jose-leles/desafio-palestras/blob/master/mobile/fiapDesafio/app/src/main/assets/homologacao.properties"> /mobile/android/fiapDesafio/assets/homologacao.properties </a>
