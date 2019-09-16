@@ -1,5 +1,6 @@
 package br.com.joseleles.fiapdesafio.views.activities;
 
+import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
@@ -21,6 +22,7 @@ import br.com.joseleles.fiapdesafio.controllers.providers.consumers.CategoriasAP
 import br.com.joseleles.fiapdesafio.controllers.providers.retrofit.Callback;
 import br.com.joseleles.fiapdesafio.controllers.providers.retrofit.Message;
 import br.com.joseleles.fiapdesafio.models.Categoria;
+import br.com.joseleles.fiapdesafio.views.fragments.BundleTags;
 import br.com.joseleles.fiapdesafio.views.fragments.FragmentBase;
 import br.com.joseleles.fiapdesafio.views.fragments.FragmentMinhasPalestras;
 import br.com.joseleles.fiapdesafio.views.fragments.FragmentPalestras;
@@ -31,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private NavigationView navigationRecolhivel;
     private List<Categoria> listaDoMenuDireito;
+    private boolean avisoSemConexaoJaFoiDado =false;
 
     private FragmentManager fm;
 
@@ -61,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
         if(savedInstanceState == null){
             if(fm == null) fm = getSupportFragmentManager();
             carregarFragment(new FragmentPalestras());
+        }else{
+            avisoSemConexaoJaFoiDado = savedInstanceState.getBoolean(BundleTags.AVISO_SEM_CONEXAO);
         }
 
     }
@@ -97,7 +102,11 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void erro(Message data) {
-                    safeShowAlertDialog("Aviso",data.getMessage());
+                    if(!avisoSemConexaoJaFoiDado){
+                        avisoSemConexaoJaFoiDado = true;
+                        safeShowAlertDialog("Aviso",data.getMessage());
+                    }
+                    new Handler(getMainLooper()).postDelayed(MainActivity.this::populateListaDeCategorias,5000);
                 }
             },"url_base");
 
@@ -121,6 +130,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(BundleTags.AVISO_SEM_CONEXAO,avisoSemConexaoJaFoiDado);
+    }
 
     private void setNavigationEsquerda() {
 
