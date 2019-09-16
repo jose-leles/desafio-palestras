@@ -4,14 +4,27 @@ USE Master
 GO
 PRINT 'Criando o banco de dados'
 GO
-IF NOT EXISTS(SELECT * FROM Sys.databases WHERE name = 'ProvaMobile')
+IF NOT EXISTS(SELECT * FROM Sys.databases WHERE name = 'ProvaMobileComUsuario')
 BEGIN
-	CREATE DATABASE ProvaMobile
+	CREATE DATABASE ProvaMobileComUsuario
 END
 GO
-USE ProvaMobile
+USE ProvaMobileComUsuario
 GO
 PRINT 'Criando as tabelas'
+GO
+IF NOT EXISTS(SELECT * FROM sys.objects WHERE name = 'Usuario' AND type_desc = 'USER_TABLE')
+BEGIN
+	CREATE TABLE Usuario (
+		Codigo INT NOT NULL IDENTITY PRIMARY KEY,
+		Senha VARCHAR(25) NOT NULL,
+		Nome VARCHAR(100) NOT NULL,
+		Email VARCHAR(255) NOT NULL,
+		Empresa VARCHAR(255) NOT NULL,
+		Cargo VARCHAR(50) NOT NULL,
+		DataHoraCadastro DATETIME NOT NULL
+	)
+END
 GO
 IF NOT EXISTS(SELECT * FROM sys.objects WHERE name = 'TipoCategoria' AND type_desc = 'USER_TABLE')
 BEGIN
@@ -41,12 +54,10 @@ BEGIN
 	CREATE TABLE Inscricao (
 		Codigo INT NOT NULL IDENTITY PRIMARY KEY,
 		CodigoPalestra INT NOT NULL,
-		Nome VARCHAR(100) NOT NULL,
-		Email VARCHAR(255) NOT NULL,
-		Empresa VARCHAR(255) NOT NULL,
-		Cargo VARCHAR(50) NOT NULL,
-		DataHoraCadastro DATETIME NOT  NULL,
-		CONSTRAINT FK_Inscricao_Palestra FOREIGN KEY (CodigoPalestra) REFERENCES Palestra (Codigo)
+		CodigoUsuario INT NOT NULL,
+		DataHoraCadastro DATETIME NOT NULL,
+		CONSTRAINT FK_Usuario_Inscricao FOREIGN KEY (CodigoUsuario) REFERENCES Usuario (Codigo),
+		CONSTRAINT FK_Inscricao_Palestra FOREIGN KEY (CodigoPalestra) REFERENCES Usuario (Codigo)
 	)
 END
 GO
@@ -90,10 +101,7 @@ BEGIN
 		SELECT
 			Codigo,
 			CodigoPalestra,
-			Nome,
-			Email,
-			Empresa,
-			Cargo,
+			CodigoUsuario,
 			CONVERT(CHAR(10), DataHoraCadastro, 103) AS ''DataCadastro'',
 			CONVERT(CHAR(8), DataHoraCadastro, 8) AS ''HoraCadastro''
 		FROM
@@ -106,19 +114,16 @@ IF NOT EXISTS(SELECT * FROM sys.objects WHERE name = 'spInscricao' AND type_desc
 BEGIN
 	EXEC sp_executesql @statement = N'CREATE PROCEDURE spInscricao 
 		@CodigoPalestra INT,		
-		@Nome VARCHAR(100),
-		@Email VARCHAR(255),
-		@Empresa VARCHAR(255),
-		@Cargo VARCHAR(50),
+		@CodigoUsuario INT,
 		@Retorno SMALLINT OUTPUT AS
 		BEGIN
-			IF NOT EXISTS(SELECT * FROM Inscricao WHERE CodigoPalestra = @CodigoPalestra AND Email = @Email)
+			IF NOT EXISTS(SELECT * FROM Inscricao WHERE CodigoPalestra = @CodigoPalestra AND CodigoUsuario = @CodigoUsuario)
 			BEGIN
 				IF EXISTS(SELECT * FROM Palestra WHERE Codigo = @CodigoPalestra)
 				BEGIN
 					IF (SELECT NumeroVagas FROM Palestra WHERE Codigo = @CodigoPalestra) > (SELECT COUNT(*) FROM Inscricao WHERE CodigoPalestra = @CodigoPalestra)
 					BEGIN
-						INSERT INTO Inscricao (CodigoPalestra, Nome, Email, Empresa, Cargo, DataHoraCadastro) VALUES (@CodigoPalestra, @Nome, @Email, @Empresa, @Cargo, GETDATE())
+						INSERT INTO Inscricao (CodigoPalestra, CodigoUsuario, DataHoraCadastro) VALUES (@CodigoPalestra, @CodigoUsuario, GETDATE())
 						SET @Retorno = 0
 					END
 					ELSE
@@ -136,6 +141,43 @@ BEGIN
 				SET @Retorno = 1
 			END
 			RETURN 
+		END'
+END
+GO
+GO
+IF NOT EXISTS(SELECT * FROM sys.objects WHERE name = 'spCadastrarUsuario' AND type_desc = 'SQL_STORED_PROCEDURE')
+BEGIN
+	EXEC sp_executesql @statement = N'CREATE PROCEDURE spCadastrarUsuario 
+		@Senha VARCHAR(25),
+		@Nome VARCHAR(100),
+		@Email VARCHAR(255),
+		@Empresa VARCHAR(255),
+		@Cargo VARCHAR(50),
+		@Retorno SMALLINT OUTPUT AS
+		BEGIN
+			IF NOT EXISTS(SELECT * FROM Usuario WHERE Email = @Email)
+			BEGIN
+			    INSERT INTO Usuario (Nome,Email,Empresa,Cargo,Senha, DataHoraCadastro) VALUES (@Nome,@Email,@Empresa,@Cargo,@Senha, GETDATE())
+				SET @Retorno = 0
+			END
+			ELSE
+			BEGIN
+				SET @Retorno = 1
+			END
+			RETURN 
+		END'
+END
+GO
+IF NOT EXISTS(SELECT * FROM sys.objects WHERE name = 'spVerificaUsuario' AND type_desc = 'SQL_STORED_PROCEDURE')
+BEGIN
+	EXEC sp_executesql @statement = N'CREATE PROCEDURE spVerificaUsuario 
+		@Senha VARCHAR(25),
+		@Email VARCHAR(255),
+		BEGIN
+			IF NOT EXISTS(SELECT * FROM Usuario WHERE Email = @Email AND Senha = @Senha)
+			BEGIN
+			    SELECT * FROM Usuario WHERE Email = @Email AND Senha = @Senha
+			END
 		END'
 END
 GO

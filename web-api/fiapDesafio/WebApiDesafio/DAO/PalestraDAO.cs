@@ -75,18 +75,18 @@ namespace WebApiDesafio.DAO{
             return palestra;
         }
 
-        public Palestra GetById(int id,string emailUsuario){
+        public Palestra GetById(int id, int idUsuario){
             SqlConnection conn;
             Palestra palestra = null;
             String query = @"SELECT * FROM vPalestra 
-                        LEFT JOIN vInscricao ON (vPalestra.Codigo = vInscricao.CodigoPalestra AND vInscricao.Email like @email )
+                        LEFT JOIN vInscricao ON (vPalestra.Codigo = vInscricao.CodigoPalestra AND vInscricao.CodigoUsuario = @idUsuario )
                         WHERE vPalestra.Codigo = @id";
             try
             {
                 conn = DatabaseConnection.GetConnection();
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("id", id);
-                cmd.Parameters.AddWithValue("email", emailUsuario==null?"":emailUsuario);
+                cmd.Parameters.AddWithValue("idUsuario", idUsuario);
                 conn.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
                 if (reader.Read())
@@ -105,7 +105,7 @@ namespace WebApiDesafio.DAO{
                     };
                     if(reader["DataCadastro"] != null && !reader["DataCadastro"].ToString().Equals("") && !reader["DataCadastro"].ToString().Equals("null"))
                     {
-                        palestra.EmailCadastrado = emailUsuario;
+                        palestra.EmailCadastrado = true;
                         palestra.DataInscricao = reader["DataCadastro"].ToString();
                         palestra.HoraInscricao = reader["HoraCadastro"].ToString();
                     }
@@ -119,19 +119,19 @@ namespace WebApiDesafio.DAO{
             return palestra;
         }
 
-        public List<Palestra> ListarPaleastraPorEmail(string emailUsuario)
+        public List<Palestra> ListarPaleastraPorIdUsuario(int idUsuario)
         {
             SqlConnection conn;
             List<Palestra> lista = new List<Palestra>();
             String query = @"SELECT * FROM vPalestra 
                             INNER JOIN vInscricao 
                             ON (vPalestra.Codigo = vInscricao.CodigoPalestra) 
-                            WHERE vInscricao.Email like @email
+                            WHERE vInscricao.CodigoUsuario = @idUsuario
                             ORDER BY vPalestra.Data DESC";
             try{
                 conn = DatabaseConnection.GetConnection();
                 SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("email", emailUsuario);
+                cmd.Parameters.AddWithValue("idUsuario", idUsuario);
                 conn.Open();
                 SqlDataReader reader =  cmd.ExecuteReader();
                 while (reader.Read()){
@@ -145,7 +145,7 @@ namespace WebApiDesafio.DAO{
                         Data = reader["Data"].ToString(),
                         Hora = reader["Hora"].ToString(),
                         QtdVagasDisponiveis = Convert.ToInt32(reader["QtdVagasDisponiveis"]),
-                        EmailCadastrado = emailUsuario,
+                        EmailCadastrado = true,
                         DataInscricao = reader["DataCadastro"].ToString(),
                         HoraInscricao = reader["HoraCadastro"].ToString()
                     });
@@ -161,16 +161,13 @@ namespace WebApiDesafio.DAO{
             SqlConnection conn;
             List<Palestra> lista = new List<Palestra>();
             String query = @"DECLARE @retorno smallint;
-                        EXEC spInscricao @idPalestra, @Nome, @Email, @Empresa, @Cargo, @retorno OUTPUT;
+                        EXEC spInscricao @idPalestra, @CodigoUsuario, @retorno OUTPUT;
                         SELECT @retorno; ";
             try{
                 conn = DatabaseConnection.GetConnection();
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("idPalestra", id);
-                cmd.Parameters.AddWithValue("Nome", usuario.Nome);
-                cmd.Parameters.AddWithValue("Email", usuario.Email);
-                cmd.Parameters.AddWithValue("Empresa", usuario.Empresa);
-                cmd.Parameters.AddWithValue("Cargo", usuario.Cargo);
+                cmd.Parameters.AddWithValue("CodigoUsuario", usuario.Codigo);
                 conn.Open();
                 SqlDataReader reader =  cmd.ExecuteReader();
                 if (reader.Read()){

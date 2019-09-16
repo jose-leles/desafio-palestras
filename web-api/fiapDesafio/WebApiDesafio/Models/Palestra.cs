@@ -17,7 +17,7 @@ namespace WebApiDesafio.Models
         public int QtdVagasDisponiveis { get; set; }
 
         //when listed by a user, must have this atributes on it
-        public String EmailCadastrado { get; set; }
+        public bool EmailCadastrado { get; set; }
         public String DataInscricao { get; set; }
         public String HoraInscricao { get; set; }
     }
