@@ -1,4 +1,4 @@
-# desafio-palestras
+# Desafio Palestras
 
 # What is that? and Why?
 
