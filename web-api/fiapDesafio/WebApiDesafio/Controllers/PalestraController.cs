@@ -33,7 +33,7 @@ namespace WebApiDesafio.Controllers{
         [HttpGet]
         [Route("palestra/detalhes/{id}")]
         public IHttpActionResult VerDetalhes(int id, string emailUsuario){
-            if(id > 1){
+            if(id > 0){
                 Palestra palestra = new PalestraDAO().GetById(id,emailUsuario);
                 return Json(palestra);
             }
