@@ -1,0 +1,24 @@
+Como rodar?
+Primeiro passo
+rodar o banco de dados no SQL Server com o script que esta no diretorio /banco/Database.sql
+
+Segundo passo
+Mudar a connectionString no arquivo web.config da web api asp.net
+
+  <configuration>
+    <connectionStrings>
+      <add name="conexaoProvaMobile" connectionString="server=JOSELELES-PC\SQLEXPRESS;database=ProvaMobile;Integrated Security=true;" providerName="System.Data.SqlClient"/>
+    </connectionStrings>
+    ...
+No meu caso eu estava rodando local com a autenticacao da maquina.
+
+Para autenticação utilizando usuario sql server pode se utilizar da seguinte forma connectionString="Server=HOST;Database=BANCO;User Id=USER; Password=SENHA;"
+
+Este arquivo se encontra no seguinte diretorio: /web-api/asp.net/fiapDesafio/WebApiDesafio/web.config
+
+Terceiro passo
+Mudar a url a qual o app está apontando para consumir a web API. Para mais detalhes sobre este modo de controlar as url de consumo veja readme do app mobile readme.md
+
+# deve conter a barra no final
+url_base=http://YOUR_SERVER_ADDRESS/
+/mobile/android/fiapDesafio/assets/homologacao.properties
