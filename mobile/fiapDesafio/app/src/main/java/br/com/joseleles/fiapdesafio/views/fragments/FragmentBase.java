@@ -76,6 +76,18 @@ public abstract class FragmentBase extends Fragment {
         }
     }
 
+//    public void safeShowAlertDialog(String title, String message){
+//        if(getContext()!=null && !isRemoving() && isAdded()){
+//            AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+//            alert.setTitle(title);
+//            alert.setMessage(message);
+//            alert.setPositiveButton(getContext().getResources().getString(R.string.ok), (dialog,escolha)->{
+//                dialog.dismiss();
+//            });
+//            alert.show();
+//        }
+//    }
+
     public void popFragment(){
         if(getActivity() !=null && getContext()!=null && isAdded()){
             FragmentManager fm = getActivity().getSupportFragmentManager();

@@ -36,6 +36,8 @@ public class FragmentMinhasPalestras extends FragmentBase implements DelegateAda
     Seccao[] mapaDasSeccoes;
     List<Palestra> listaCompleta = new ArrayList<>(); // lista sem as categorias
 
+    Usuario logado;
+
     private TextView avisoErro;
 
     @Override
@@ -63,6 +65,9 @@ public class FragmentMinhasPalestras extends FragmentBase implements DelegateAda
 
         setAdpterSeccionadoParaORecyclerView(reciclerView);
 
+        if(savedInstanceState !=null){
+            logado = savedInstanceState.getParcelable(BundleTags.USUARIO_LOGADO);
+        }
 
 
         return root;
@@ -73,11 +78,12 @@ public class FragmentMinhasPalestras extends FragmentBase implements DelegateAda
         fragment.setLogado(logado);
         return fragment;
     }
+    
 
     private void populateCategoriasEPalestras() {
         if(getContext() != null){
             String emailLogado = new UsuarioDAO(getContext()).getEmail();
-            new PalestraAPI().getMinhasPalestras(getContext(),emailLogado, new Callback<List<Categoria>, Message>() {
+            new PalestraAPI().getMinhasPalestras(getContext(),logado, new Callback<List<Categoria>, Message>() {
                 @Override
                 public void sucesso(List<Categoria> data) {
                     if(data!=null && data.size()>0){
@@ -144,6 +150,12 @@ public class FragmentMinhasPalestras extends FragmentBase implements DelegateAda
     }
 
     @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(BundleTags.USUARIO_LOGADO, logado);
+    }
+
+    @Override
     public void onItemClicked(Palestra clicado, int position) {
         Categoria categoriaDaPalestraEscolhida=null;
         for(Categoria c :listaCategorias){
@@ -152,11 +164,16 @@ public class FragmentMinhasPalestras extends FragmentBase implements DelegateAda
                 break;
             }
         }
-        redirect(FragmentDetalhes.newInstance(clicado,categoriaDaPalestraEscolhida));
+        redirect(FragmentDetalhes.newInstance(logado,clicado,categoriaDaPalestraEscolhida));
     }
 
     @Override
     public void setTagOfFragment() {
         this.tag = getClass().getSimpleName();
     }
+
+    public void setLogado(Usuario logado) {
+        this.logado = logado;
+    }
+
 }

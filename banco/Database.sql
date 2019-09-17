@@ -57,7 +57,7 @@ BEGIN
 		CodigoUsuario INT NOT NULL,
 		DataHoraCadastro DATETIME NOT NULL,
 		CONSTRAINT FK_Usuario_Inscricao FOREIGN KEY (CodigoUsuario) REFERENCES Usuario (Codigo),
-		CONSTRAINT FK_Inscricao_Palestra FOREIGN KEY (CodigoPalestra) REFERENCES Usuario (Codigo)
+		CONSTRAINT FK_Inscricao_Palestra FOREIGN KEY (CodigoPalestra) REFERENCES Palestra (Codigo)
 	)
 END
 GO

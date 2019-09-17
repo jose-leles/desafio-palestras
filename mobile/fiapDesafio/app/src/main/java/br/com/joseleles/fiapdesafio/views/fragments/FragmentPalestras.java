@@ -22,6 +22,7 @@ import br.com.joseleles.fiapdesafio.controllers.providers.retrofit.Callback;
 import br.com.joseleles.fiapdesafio.controllers.providers.retrofit.Message;
 import br.com.joseleles.fiapdesafio.models.Categoria;
 import br.com.joseleles.fiapdesafio.models.Palestra;
+import br.com.joseleles.fiapdesafio.models.Usuario;
 import br.com.joseleles.fiapdesafio.views.adapters.AdaperPalestras;
 import br.com.joseleles.fiapdesafio.views.adapters.DelegateAdapterOnItemClick;
 import br.com.joseleles.fiapdesafio.views.adapters.SeccionadorDeAdapterPalestra;
@@ -34,6 +35,8 @@ public class FragmentPalestras extends FragmentBase implements DelegateAdapterOn
     List<Categoria> listaCategorias = new ArrayList<>(); // dentro tem as palestras
     Seccao[] mapaDasSeccoes;
     List<Palestra> listaCompleta = new ArrayList<>(); // lista sem as categorias
+
+    Usuario logado;
 
     Categoria filtro;
 
@@ -58,6 +61,7 @@ public class FragmentPalestras extends FragmentBase implements DelegateAdapterOn
 
         if(savedInstanceState != null){
             filtro = savedInstanceState.getParcelable(BundleTags.FILTRO_PALESTRAS);
+            logado = savedInstanceState.getParcelable(BundleTags.USUARIO_LOGADO);
         }
         if(filtro!=null){
             root.findViewById(R.id.button_limpar_filtro).setVisibility(View.VISIBLE);
@@ -165,7 +169,7 @@ public class FragmentPalestras extends FragmentBase implements DelegateAdapterOn
                 break;
             }
         }
-        redirect(FragmentDetalhes.newInstance(clicado,categoriaDaPalestraEscolhida));
+        redirect(FragmentDetalhes.newInstance(logado,clicado,categoriaDaPalestraEscolhida));
         Toast.makeText(getContext(),"Position ="+position,Toast.LENGTH_SHORT).show();
     }
 
@@ -175,19 +179,22 @@ public class FragmentPalestras extends FragmentBase implements DelegateAdapterOn
     }
 
 
-    public static FragmentPalestras newInstance(Categoria filtro) {
+    public static FragmentPalestras newInstance(Usuario logado, Categoria filtro) {
         FragmentPalestras fragment = new FragmentPalestras();
         fragment.setCategoriaFiltro(filtro);
+        fragment.setLogado(logado);
         return fragment;
     }
 
     public void setCategoriaFiltro(Categoria filtro){
         this.filtro = filtro;
     }
+    public void setLogado(Usuario logado){ this.logado= logado; }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelable(BundleTags.FILTRO_PALESTRAS,filtro);
+        outState.putParcelable(BundleTags.USUARIO_LOGADO,logado);
     }
 }

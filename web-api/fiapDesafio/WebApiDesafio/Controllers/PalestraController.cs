@@ -53,18 +53,24 @@ namespace WebApiDesafio.Controllers
         { //TODO: chave da tabela 
             List<Categoria> lista = new CategoriaDAO().ListarCategorias();
             List<Palestra> listaPalestras = new PalestraDAO().ListarPaleastraPorIdUsuario(idUsuario);
-            lista.ForEach(categoria => {
-                for (int i = 0; i < listaPalestras.Count; i++)
-                {
-                    if (listaPalestras[i].CodigoTipoCategoria == categoria.Codigo)
+            // só retornar a lista de categorias com palestras dentro se a pessoa
+            // estiver inscrita em alguma palestra
+            if (listaPalestras.Count > 0){
+                lista.ForEach(categoria => {
+                    for (int i = 0; i < listaPalestras.Count; i++)
                     {
-                        categoria.Palestras.Add(listaPalestras[i]);
-                        listaPalestras.RemoveAt(i);
-                        i--;
+                        if (listaPalestras[i].CodigoTipoCategoria == categoria.Codigo)
+                        {
+                            categoria.Palestras.Add(listaPalestras[i]);
+                            listaPalestras.RemoveAt(i);
+                            i--;
+                        }
                     }
-                }
-            });
-            return Json(new { Categorias = lista });
+                });
+                return Json(new { Categorias = lista });
+            }else {
+                return Json(new { Categorias = new List<object>() }); //{Categorias:[]} 
+            }
         }
 
         [HttpPost]

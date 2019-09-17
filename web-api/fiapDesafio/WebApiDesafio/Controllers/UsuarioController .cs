@@ -28,7 +28,11 @@ namespace WebApiDesafio.Controllers{
             bool cadastrado = new UsuarioDAO().CadastrarUsuario(toCadastrar);
             if(cadastrado){
                 Usuario autenticado = new UsuarioDAO().AutenticarUsuario(toCadastrar);
-                return Json(autenticado);
+                if(autenticado != null){
+                    return Json(autenticado);
+                }else{
+                    return Json(new SimpleReturn("Falha no cadastro", false));
+                }
             }else{
                 return Json(new SimpleReturn("Não foi possivel cadastrar-se", false));
             }

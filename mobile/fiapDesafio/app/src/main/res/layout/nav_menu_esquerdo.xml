@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/nav_header"
     android:layout_width="match_parent"
-    android:layout_height="160dp"
+    android:layout_height="190dp"
     android:background="@color/colorPrimaryDark"
     android:clickable="true"
     android:focusable="true"
@@ -19,12 +19,19 @@
         android:tint="@color/colorPrimary"/>
 
     <TextView
-        android:id="@+id/nav_header_textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="16dp"
         android:text="Fiap Palestras"
         android:textSize="20dp"
-        android:textColor="@color/colorPrimary"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        android:textColor="@color/colorPrimary" />
+
+    <TextView
+        android:id="@+id/nome_usuario_logado"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="16dp"
+        android:text="Nome Usuario"
+        android:textSize="20dp"
+        android:textColor="@color/colorPrimary" />
 </LinearLayout>

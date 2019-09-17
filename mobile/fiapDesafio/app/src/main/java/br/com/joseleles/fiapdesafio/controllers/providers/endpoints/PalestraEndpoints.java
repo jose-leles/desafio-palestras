@@ -19,11 +19,11 @@ public interface PalestraEndpoints {
     Call<List<Categoria>> getCategoriesWithLectures();
 
     @GET("palestra/detalhes/{id}")
-    Call<Palestra> getDeatailsOfPalestra(@Path("id") int id, @Query("emailUsuario") String email);
+    Call<Palestra> getDeatailsOfPalestra(@Path("id") int id, @Query("idUsuario") int idUsuario);
 
     @POST("palestra/inscrever/{id}")
     Call<Message> inscreverUsuario(@Path("id") int id, @Body Usuario user);
 
     @GET("palestra/listar")
-    Call<List<Categoria>> listarMinhasPalestras(@Query("emailUsuario") String email);
+    Call<List<Categoria>> listarMinhasPalestras(@Query("idUsuario") int idUsuario);
 }

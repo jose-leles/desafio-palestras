@@ -39,6 +39,7 @@ public class UsuarioAPI {
             public Usuario criarObjetoAPartirDoJson(String corpo) throws JSONException {
                 JSONObject jsonUsuario = new JSONObject(corpo);
                 Usuario autenticado = new Usuario();
+                autenticado.setCodigo(jsonUsuario.getInt("Codigo"));
                 autenticado.setEmpresa(jsonUsuario.getString("Empresa"));
                 autenticado.setNome(jsonUsuario.getString("Nome"));
                 autenticado.setCargo(jsonUsuario.getString("Cargo"));
@@ -46,6 +47,56 @@ public class UsuarioAPI {
                 return autenticado;
             }
         },urlPropertie).tryLogin(usuario).enqueue(new retrofit2.Callback<Usuario>() {
+            @Override
+            public void onResponse(Call<Usuario> call, Response<Usuario> response) {
+                if(response.isSuccessful()){
+                    callback.sucesso(response.body());
+                }else{
+                    callback.erro(new Message("Erro na conversão da resposta. code: "+response.code(), false));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Usuario> call, Throwable t) {
+                if(t instanceof IOException){
+                    // sem conexao com servidor
+                    callback.erro(new Message("Sem Conexao com o servidor.", false));
+                }else{
+                    callback.erro(new Message("Credenciais invalidas", false));
+                }
+            }
+        });
+    }
+
+
+
+
+    public void cadastrarUsuario(@NonNull Context context, Usuario usuario, Callback<Usuario, Message> callback, String urlPropertie){
+        new WebConsumer(context).getEndpoint(UsuarioEndpoints.class, new DelegateConversionOfRequestAndResponse<Usuario, Usuario>() {
+            @Override
+            public String criarJsonAPartirDoObjeto(Usuario corpo) throws JSONException {
+                JSONObject jsonUsuario = new JSONObject();
+                jsonUsuario.put("Codigo",corpo.getCodigo());
+                jsonUsuario.put("Empresa",corpo.getEmpresa());
+                jsonUsuario.put("Nome",corpo.getNome());
+                jsonUsuario.put("Cargo",corpo.getCargo());
+                jsonUsuario.put("Senha",corpo.getSenha());
+                jsonUsuario.put("Email",corpo.getEmail());
+                return jsonUsuario.toString();
+            }
+
+            @Override
+            public Usuario criarObjetoAPartirDoJson(String corpo) throws JSONException {
+                JSONObject jsonUsuario = new JSONObject(corpo);
+                Usuario autenticado = new Usuario();
+                autenticado.setCodigo(jsonUsuario.getInt("Codigo"));
+                autenticado.setEmpresa(jsonUsuario.getString("Empresa"));
+                autenticado.setNome(jsonUsuario.getString("Nome"));
+                autenticado.setCargo(jsonUsuario.getString("Cargo"));
+                autenticado.setEmail(jsonUsuario.getString("Email"));
+                return autenticado;
+            }
+        },urlPropertie).cadastrar(usuario).enqueue(new retrofit2.Callback<Usuario>() {
             @Override
             public void onResponse(Call<Usuario> call, Response<Usuario> response) {
                 if(response.isSuccessful()){

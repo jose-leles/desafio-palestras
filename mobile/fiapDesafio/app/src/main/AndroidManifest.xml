@@ -14,6 +14,7 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme">
         <activity android:name=".views.activities.MainActivity" />
+        <activity android:name=".views.activities.CadastroActivity" />
         <activity android:name=".views.activities.LoginActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

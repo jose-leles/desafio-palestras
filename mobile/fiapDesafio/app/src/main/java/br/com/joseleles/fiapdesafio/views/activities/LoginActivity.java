@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.util.List;
 import java.util.regex.Pattern;
@@ -36,23 +37,27 @@ import br.com.joseleles.fiapdesafio.views.fragments.FragmentPalestras;
 public class LoginActivity extends AppCompatActivity {
 
 
-    private LinearLayout formLogin;
     private EditText textLogin;
     private EditText textSenha;
     private Button buttonLogin;
 
-    private LinearLayout formCadastro;
+    private TextView cadastrarSe;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        formLogin = findViewById(R.id.form_login);
-
         textLogin = findViewById(R.id.text_email_login);
         textSenha = findViewById(R.id.text_senha);
         buttonLogin = findViewById(R.id.button_login);
+
+        cadastrarSe = findViewById(R.id.text_cadastrar_se);
+        cadastrarSe.setOnClickListener(v->{
+            Intent intent = new Intent(LoginActivity.this, CadastroActivity.class);
+            startActivity(intent);
+        });
         buttonLogin.setOnClickListener(v -> {
             Pattern regexDeEmail = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
             if(!regexDeEmail.matcher(textLogin.getText().toString()).find()){
@@ -74,6 +79,8 @@ public class LoginActivity extends AppCompatActivity {
                         dao.deleteOthersEmail();
                         dao.insertEmail(autenticado.getEmail());
                         logarAutenticado(autenticado);
+                    }else{
+                        safeShowAlertDialog("Aviso", "Credenciais Invalidas");
                     }
                 }
 
@@ -101,6 +108,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void logarAutenticado(Usuario autenticado){
+        finish();
         Intent intent = new Intent(this, MainActivity.class);
         Bundle extras = new Bundle();
         extras.putParcelable(BundleTags.USUARIO_LOGADO,autenticado);

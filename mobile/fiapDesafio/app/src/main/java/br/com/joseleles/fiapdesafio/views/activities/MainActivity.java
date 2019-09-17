@@ -14,6 +14,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.SubMenu;
 import android.view.View;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -45,6 +46,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //getusuario logado
+        if(getIntent()!=null && getIntent().getExtras()!=null){
+            logado = getIntent().getExtras().getParcelable(BundleTags.USUARIO_LOGADO);
+        }
+
         //configurando a barra superior
         Toolbar barraSuperior = findViewById(R.id.toolbar);
         setSupportActionBar(barraSuperior);
@@ -63,15 +69,12 @@ public class MainActivity extends AppCompatActivity {
         populateListaDeCategorias();
         setNavigationEsquerda();
 
-        //getusuario logado
-        if(getIntent()!=null && getIntent().getExtras()!=null){
-            logado = getIntent().getExtras().getParcelable(BundleTags.USUARIO_LOGADO);
-        }
+
 
         //carregando o primeiro fragment, só uma vez
         if(savedInstanceState == null){
             if(fm == null) fm = getSupportFragmentManager();
-            carregarFragment(new FragmentPalestras());
+            carregarFragment(FragmentPalestras.newInstance(logado,null));
         }else{
             logado = savedInstanceState.getParcelable(BundleTags.USUARIO_LOGADO);
             avisoSemConexaoJaFoiDado = savedInstanceState.getBoolean(BundleTags.AVISO_SEM_CONEXAO);
@@ -98,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
                                         final Categoria categoria = listaDoMenuDireito.get(c);
                                         subMenu.add(categoria.getDescricao());
                                         subMenu.getItem(c).setOnMenuItemClickListener(item -> {
-                                            carregarFragment(FragmentPalestras.newInstance(categoria));
+                                            carregarFragment(FragmentPalestras.newInstance(logado, categoria));
                                             return false;
                                         });
                                     }
@@ -147,14 +150,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setNavigationEsquerda() {
-
+        ((TextView) navigationRecolhivel.getHeaderView(0).findViewById(R.id.nome_usuario_logado))
+                .setText(logado.getNome());
         navigationRecolhivel.setNavigationItemSelectedListener(menuItem -> {
             switch (menuItem.getItemId()){
                 case R.id.item_ver_inscricoes:
-                    carregarFragment(new FragmentMinhasPalestras.newInstance(logado));
+                    carregarFragment(FragmentMinhasPalestras.newInstance(logado));
+                    break;
+                case R.id.item_sair:
+                    finish();
                     break;
             }
-            holderDeTodaTela.closeDrawers();
+            if(!isFinishing()&&!isDestroyed())
+                holderDeTodaTela.closeDrawers();
             return true;
         });
     }

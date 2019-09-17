@@ -25,6 +25,10 @@
                     android:id="@+id/item_ver_inscricoes"
                     android:title="Ver Minhas Inscrições" >
                 </item>
+                <item
+                    android:id="@+id/item_sair"
+                    android:title="Sair" >
+                </item>
             </menu>
         </item>
 

@@ -89,7 +89,7 @@ public class PalestraAPI {
         });
     }
 
-    public void getDetalhesOfPalestra(@NonNull Context context, String email, int idPalestra, Callback<Palestra, Message> callback, String urlPropertie){
+    public void getDetalhesOfPalestra(@NonNull Context context, Usuario usuario, int idPalestra, Callback<Palestra, Message> callback, String urlPropertie){
         new WebConsumer(context).getEndpoint(PalestraEndpoints.class, new DelegateConversionOfRequestAndResponse<Void, Palestra>() {
             @Override
             public String criarJsonAPartirDoObjeto(Void corpo) throws JSONException {
@@ -119,7 +119,7 @@ public class PalestraAPI {
 
                     return palestra;
             }
-        },urlPropertie).getDeatailsOfPalestra(idPalestra, email).enqueue(new retrofit2.Callback<Palestra>() {
+        },urlPropertie).getDeatailsOfPalestra(idPalestra, usuario.getCodigo()).enqueue(new retrofit2.Callback<Palestra>() {
             @Override
             public void onResponse(Call<Palestra> call, Response<Palestra> response) {
                 if(response.isSuccessful()){
@@ -183,7 +183,7 @@ public class PalestraAPI {
         });
     }
 
-    public void getMinhasPalestras(Context context, String email, Callback<List<Categoria>, Message> callback, String url_base) {
+    public void getMinhasPalestras(Context context, Usuario logado, Callback<List<Categoria>, Message> callback, String url_base) {
         new WebConsumer(context).getEndpoint(PalestraEndpoints.class, new DelegateConversionOfRequestAndResponse<Void, List<Categoria>>() {
             @Override
             public String criarJsonAPartirDoObjeto(Void corpo) {
@@ -226,7 +226,7 @@ public class PalestraAPI {
                 }
                 return lista;
             }
-        },url_base).listarMinhasPalestras(email).enqueue(new retrofit2.Callback<List<Categoria>>() {
+        },url_base).listarMinhasPalestras(logado.getCodigo()).enqueue(new retrofit2.Callback<List<Categoria>>() {
             @Override
             public void onResponse(Call<List<Categoria>> call, Response<List<Categoria>> response) {
                 if(response.isSuccessful()){

@@ -9,4 +9,7 @@ public interface UsuarioEndpoints {
 
     @POST("usuario/logar")
     Call<Usuario> tryLogin(@Body Usuario tentar);
+
+    @POST("usuario/cadastrar")
+    Call<Usuario> cadastrar(@Body Usuario tentar);
 }
