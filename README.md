@@ -13,7 +13,7 @@ rodar o banco de dados no SQL Server com o script que esta no diretorio <a href=
 
 
 ### Segundo passo
-Mudar a connectionString no arquivo web.config da web api asp.net nesta branch o banco se chama **ProvaMobileComUsuario** pois eu fiz algumas alteracoes no mesmo
+Mudar a connectionString no arquivo web.config da web api asp.net nesta branch o banco se chama **ProvaMobileComUsuario** pois eu fiz algumas alteracoes no mesmo ainda respeitando a regra de leitura e escrita preestabelecida onde não se pode ler ou gravar diretamente na tabela.
 ``` 
   <configuration>
     <connectionStrings>
