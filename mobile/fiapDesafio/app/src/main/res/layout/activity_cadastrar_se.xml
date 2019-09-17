@@ -142,7 +142,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Senha:"
-                android:layout_weight="0.18"/>
+                android:layout_weight="0.3"/>
 
             <Space
                 android:layout_width="0dp"
@@ -154,7 +154,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textSize="16dp"
-                android:layout_weight="0.8"
+                android:layout_weight="0.7"
                 />
 
         </LinearLayout>
@@ -169,7 +169,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Confirmar:"
-                android:layout_weight="0.18"/>
+                android:layout_weight="0.3"/>
 
             <Space
                 android:layout_width="0dp"
@@ -181,7 +181,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textSize="16dp"
-                android:layout_weight="0.8"
+                android:layout_weight="0.7"
                 />
 
         </LinearLayout>

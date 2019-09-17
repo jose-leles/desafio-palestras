@@ -142,7 +142,7 @@ public class CadastroActivity extends AppCompatActivity {
         user.setNome(textNome.getText().toString());
         user.setEmail(textEmail.getText().toString());
         user.setCargo(textCargo.getText().toString());
-        user.setCargo(textCargo.getText().toString());
+        user.setEmpresa(textEmpresa.getText().toString());
         user.setSenha(textSenha.getText().toString());
         return user;
     }

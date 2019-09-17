@@ -170,7 +170,6 @@ public class FragmentPalestras extends FragmentBase implements DelegateAdapterOn
             }
         }
         redirect(FragmentDetalhes.newInstance(logado,clicado,categoriaDaPalestraEscolhida));
-        Toast.makeText(getContext(),"Position ="+position,Toast.LENGTH_SHORT).show();
     }
 
     @Override
