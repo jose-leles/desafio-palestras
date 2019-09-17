@@ -13,11 +13,11 @@ rodar o banco de dados no SQL Server com o script que esta no diretorio <a href=
 
 
 ### Segundo passo
-Mudar a connectionString no arquivo web.config da web api asp.net
+Mudar a connectionString no arquivo web.config da web api asp.net nesta branch o banco se chama **ProvaMobileComUsuario** pois eu fiz algumas alteracoes no mesmo
 ``` 
   <configuration>
     <connectionStrings>
-      <add name="conexaoProvaMobile" connectionString="server=JOSELELES-PC\SQLEXPRESS;database=ProvaMobile;Integrated Security=true;" providerName="System.Data.SqlClient"/>
+      <add name="conexaoProvaMobile" connectionString="server=JOSELELES-PC\SQLEXPRESS;database=ProvaMobileComUsuario;Integrated Security=true;" providerName="System.Data.SqlClient"/>
     </connectionStrings>
     ...
 ```
